@@ -1,4 +1,4 @@
-FROM magland/matlab_for_kilosort:0.1.0
+FROM spikeinterface/matlab_for_kilosort:0.1.0
 
 #########################################
 ### Python                                                               
