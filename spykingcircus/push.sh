@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push spikeinterface/spyking-circus:1.0.7
+docker push spikeinterface/spyking-circus-base:1.0.7
