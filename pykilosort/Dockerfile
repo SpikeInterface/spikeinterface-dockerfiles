@@ -13,8 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y python3-tk
 
 RUN pip install numpy
 
-# gcc-8 (cuda mex doesn't seem to work with gcc >8)
-RUN apt-get install -y gcc-8 g++-8 && ln -sf /usr/bin/gcc-8 /usr/bin/gcc && ln -sf /usr/bin/g++-8 /usr/bin/g++
+# gcc-7 (cupy doesn't seem to work with gcc > 7)
+RUN apt-get install -y gcc-7 g++-7 && ln -sf /usr/bin/gcc-7 /usr/bin/gcc && ln -sf /usr/bin/g++-7 /usr/bin/g++
 
 # Clone the source code for kilosort2
 RUN git clone https://github.com/MouseLand/pykilosort.git && cd pykilosort \
