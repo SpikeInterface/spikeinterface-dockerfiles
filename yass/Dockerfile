@@ -1,43 +1,35 @@
-#docker build -t ibl/yass:base .
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
 # link the cuda libraries
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
-# setup time zone for tz
-ENV TZ=Europe/Paris
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Install python3.7
+# install ubuntu packages
 RUN apt-get update
-RUN apt-get install -y software-properties-common wget
-RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt-get update
-RUN apt-get install -y python3.7 python3.7-dev python3.7-tk python3-pip python3.7-venv git ffmpeg libgtk-3-dev
+RUN apt-get install -y software-properties-common wget git
 
-# Install Python dependencies
-ARG PYTHON=python3.7
-ENV LANG C.UTF-8
-ENV CONDA_PATH=/opt/anaconda3
-ENV ENVIRONMENT_NAME=main
-SHELL ["/bin/bash", "-c"]
+# set shell to /bin/bash for compatibility with conda
+# (hints from: https://towardsdatascience.com/conda-pip-and-docker-ftw-d64fe638dc45)
+SHELL [ "/bin/bash", "--login",  "-c" ]
 
-# Download and install Anaconda.
-ENV LATEST_CONDA_SCRIPT "Anaconda3-5.3.1-Linux-x86_64.sh"
-ENV PATH="/root/anaconda2/bin:${PATH}"
+# install miniconda
+ENV MINICONDA_VERSION 4.8.2
+ENV CONDA_DIR /home/miniconda3
+ENV LATEST_CONDA_SCRIPT "Miniconda3-py37_$MINICONDA_VERSION-Linux-x86_64.sh"
 
-RUN wget https://repo.continuum.io/archive/$LATEST_CONDA_SCRIPT
+RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
+    chmod +x ~/miniconda.sh && \
+    ~/miniconda.sh -b -p $CONDA_DIR && \
+    rm ~/miniconda.sh
 
-RUN bash $LATEST_CONDA_SCRIPT -b -p /home/anaconda3 \
-	&& echo "export PATH=/home/anaconda/bin:$PATH" >> ~/.bashrc \
-	&& /bin/bash -c "source /root/.bashrc"
+# make non-activate conda commands available
+ENV PATH=$CONDA_DIR/bin:$PATH
+# make conda activate command available from /bin/bash --login shells
+RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile 
+# make conda activate command available from /bin/bash --interactive shells
+RUN conda init bash
 
-ENV PATH /home/anaconda3/bin:$PATH
-
+# install YASS
 RUN conda install pytorch==1.2
-#RUN rm $LATEST_CONDA_SCRIPT
-#conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch
-
 RUN git clone https://github.com/paninski-lab/yass \
    && cd yass \
    && pip --no-cache-dir install -e . \
@@ -50,5 +42,3 @@ RUN git clone https://github.com/paninski-lab/yass \
    && pip install .
 
 RUN pip install scipy==1.2.0
-#cd yass/samples/10chan
-#yass sort config.yaml
