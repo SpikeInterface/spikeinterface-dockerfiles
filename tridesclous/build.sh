@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t spikeinterface/tridesclous-base:1.6.3 .
+docker build -t spikeinterface/tridesclous-base:1.6.4 .
