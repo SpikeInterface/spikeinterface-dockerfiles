@@ -9,4 +9,4 @@ RUN pip install scipy numpy pandas scikit-learn matplotlib seaborn tqdm openpyxl
 RUN pip install h5py
 RUN pip install loky
 
-RUN pip install tridesclous==1.6.3
+RUN pip install tridesclous==1.6.4
