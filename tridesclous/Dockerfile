@@ -1,6 +1,6 @@
 FROM python:3.8
 
-RUN pip --upgrade pip
+RUN pip install --upgrade pip
 
 # on 2022/01/12 : numba still force <1.21 
 RUN pip install numpy==1.20
