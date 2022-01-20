@@ -35,10 +35,11 @@ Licenses for Matlab and toolboxes are needed only for compiling ironclust as Sta
 
 ## Generating Base Docker Image
 - Close `Package` and `Application Compiler` windows
-- In matlab console run:
+- In Matlab console run:
 ```
 compiler.package.docker('p_ironclust/for_testing/p_ironclust', 'p_ironclust/for_testing/requiredMCRProducts.txt', 'ImageName', 'ironclust-base')
 ```
+This command will create an image called `ironclust-base` to be used in next step
 
 ## Extending Base Image/Creating final image
 The Dockerfile in this folder applies some fixes and updates to the base image generated automatically by Matlab in order to properly run ironclust:
