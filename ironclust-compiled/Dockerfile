@@ -2,8 +2,6 @@ FROM ironclust-base
 
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
-RUN echo "version = '5.9.8'\ndate = '03/03/2020'" > /opt/version.txt
-
 RUN apt-get update -y
 RUN apt-get install software-properties-common -y
 RUN add-apt-repository ppa:deadsnakes/ppa -y
