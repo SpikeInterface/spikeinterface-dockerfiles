@@ -1,5 +1,6 @@
 FROM ironclust-base
 
+RUN chmod 755 /usr/bin/mlrtapp/p_ironclust
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
