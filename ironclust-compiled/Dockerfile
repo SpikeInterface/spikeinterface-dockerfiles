@@ -1,4 +1,4 @@
-FROM ironclust-base
+FROM ironclust-matlab-base
 
 RUN chmod 755 /usr/bin/mlrtapp/p_ironclust
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
