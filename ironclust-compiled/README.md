@@ -66,6 +66,6 @@ Notice that a volume has to be binded to a folder were your data locally is stor
 
 Sample run:
 ```
-docker run -v /home/user/data:/opt/data -it spikeinterface/ironclust p_ironclust /opt/data/raw.mda /opt/data/geom.csv '' '' /opt/data/tmp/firing.mda /opt/data/argfile.txt
+docker run -v /home/user/data:/opt/data -it spikeinterface/ironclust p_ironclust /opt/data/tmp /opt/data/raw.mda /opt/data/geom.csv '' '' /opt/data/tmp/firing.mda /opt/data/argfile.txt
 ```
 
