@@ -5,9 +5,10 @@ On Linux systems, you can also use the build script (after making it executable 
 `./build.sh`  
 
 ### How to run the spikeinterface container
-**Method 1** For Windows: drag and drop the data folder on `Run_SpikeInterface.bat`. Replace "mytoken" by whatever word.   
+**Method 1**  
+For Windows: drag and drop the data folder on `Run_SpikeInterface.bat`. Replace "mytoken" by whatever word.   
   
-**Method 2**
+**Method 2**  
 On Linux/MacOS:  
 `export JUPYTER_TOKEN='mytoken'`
 `docker run -d --rm --name spikeinterface -v "${PWD}":/home/jovyan/work -p 8888:8888 -e JUPYTER_TOKEN wanglabneuro/spikeinterface:0.1`  
