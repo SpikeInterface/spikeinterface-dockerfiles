@@ -40,10 +40,10 @@ WORKDIR /home/$NB_USER/spikeinterface/installation_tips/
 RUN conda env create -f full_spikeinterface_environment_mac.yml
 
 # Make kernels available
-SHELL ["conda","run","-n","spikeinterface","/bin/bash","-c"]
+SHELL ["conda","run","-n","si_env","/bin/bash","-c"]
 RUN conda install --quiet --yes ipykernel && \
     conda install --quiet --yes -c conda-forge datalad && \
-    python -m ipykernel install --user --name spikeinterface --display-name "spikeinterface" && \
+    python -m ipykernel install --user --name si_env --display-name "spikeinterface" && \
     pip install jupytext dotenv
 
 # Configure git (required by datalad)
