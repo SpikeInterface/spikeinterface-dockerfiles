@@ -28,8 +28,8 @@ Licenses for Matlab and toolboxes are needed only for compiling ironclust as Sta
 - Set Matlab's workspace folder to: `<local-path-to-project>/ironclust/matlab`
 - Open Matlab's `Application Compiler` (located in `APPS` Tab)
 - Click on `+` sign in Add Main File, Select `p_ironclust.m` and Click Open
-- In the section `Files installed for your end user`, click on `+` sign button and Select all files (some might not be needed, but we haven't tested removing them), also select the following folders:  `prb` and `prb_json`. Click Open
-- On Application Compiler window, Click on Package, Save the `p_ironclust.prj` file and wait for Matlab to Compile the project. A folder (named `p_ironclust` by default) with compiled files will be generated.
+- In the section `Files required for your application to run`, click on `+` sign button and Select all files (some might not be needed, but we haven't tested removing them), also select the following folders:  `prb` and `prb_json`. Click Open
+- On Application Compiler window, Click on `Package`, Save the `p_ironclust.prj` file and wait for Matlab to Compile the project. A folder (named `p_ironclust` by default) with compiled files will be generated.
 
 
 ## Generating Base Docker Image
@@ -45,12 +45,12 @@ The Dockerfile in this folder applies some fixes and updates to the base image g
 
 - In your terminal, go to the current folder:
 ```
-$ cd <local-path-to-project>/spikeinterface-dockerfiles/ironclust
+$ cd <local-path-to-project>/spikeinterface-dockerfiles/ironclust-compiled
 ```
 
-- Run docker build:
+- Run build script:
 ```
-$ docker build -t spikeinterface/ironclust .
+$ source build.sh
 ```
 
 
