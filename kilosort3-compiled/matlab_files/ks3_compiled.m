@@ -1,5 +1,7 @@
 function ks3_compiled(fpath)
     try
+        set(groot,'defaultFigureVisible', 'off');
+
         % Load channel map file
         load(fullfile(fpath, 'chanMap.mat'));
 
