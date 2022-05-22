@@ -13,4 +13,3 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 RUN apt-get install python3-pip -y
 RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 RUN pip install -U pip
-

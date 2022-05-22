@@ -13,6 +13,7 @@ There are three main steps for generating a functional kilosort3-compiled docker
 - Docker
 - Matlab
 - NVIDIA GPU and CUDA capabilities
+- [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#setting-up-nvidia-container-toolkit): required to run a docker with GPU capabilities
 
 ### Matlab Requirements
 - MATLAB Compiler
