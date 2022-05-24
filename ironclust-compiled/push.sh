@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker push spikeinterface/ironclust-base:5.9.8
+docker push spikeinterface/ironclust-compiled-base:5.9.8
 
