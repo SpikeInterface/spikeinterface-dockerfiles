@@ -41,7 +41,7 @@ Licenses for Matlab and toolboxes are needed only for compiling ironclust as Sta
 ```
 
 ## Generating Base Docker Image
-- To generate the base docker image (called `ks3-matlab-base`) with compiled application, run the following command in Matlab console:
+- To generate the base docker image (called `ks3-matlab-base`) with the compiled application, run the following command in Matlab console:
 ```
 >> compiler.package.docker('ks3_compiled', 'requiredMCRProducts.txt', 'ImageName', 'ks3-matlab-base')
 ```
@@ -61,7 +61,7 @@ Licenses for Matlab and toolboxes are needed only for compiling ironclust as Sta
     matlab_files/readme.txt \
     matlab_files/requiredMCRProducts.txt \
     matlab_files/run_ks3_compiled.sh \
-    matlab_files/unresolvedSymbols.txt \
+    matlab_files/unresolvedSymbols.txt
   ```
 
 ## Extending Base Image and creating final image
