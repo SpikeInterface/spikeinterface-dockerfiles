@@ -17,6 +17,6 @@ RUN pip install git+https://github.com/scikit-learn-contrib/hdbscan.git
 RUN pip install Cython
 RUN pip install scipy pandas scikit-learn matplotlib seaborn tqdm openpyxl quantities neo
 RUN pip install h5py
-RUN pip install loky
+RUN pip install loky packaging
 
-RUN pip install tridesclous==1.6.4
+RUN pip install tridesclous==1.6.5
