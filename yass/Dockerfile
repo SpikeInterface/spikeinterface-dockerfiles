@@ -3,10 +3,18 @@ FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 # link the cuda libraries
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
+# fix nvidia gpg
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+RUN apt-key del 7fa2af80
+RUN apt-get update && apt-get install -y --no-install-recommends wget
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
+RUN dpkg -i cuda-keyring_1.0-1_all.deb
+
 # install ubuntu packages
 RUN apt-get update
-RUN apt-get install -y software-properties-common wget git
-
+RUN apt-get install -y git software-properties-common
+ 
 # set shell to /bin/bash for compatibility with conda
 # (hints from: https://towardsdatascience.com/conda-pip-and-docker-ftw-d64fe638dc45)
 SHELL [ "/bin/bash", "--login",  "-c" ]
@@ -41,4 +49,6 @@ RUN git clone https://github.com/paninski-lab/yass \
    && cd ../.. \
    && pip install .
 
-RUN pip install scipy==1.2.0
+# fix versions of scipy and pyyaml (to avoid Loader problem)
+RUN pip install scipy==1.2.0 && pip install pyyaml==5.3
+
