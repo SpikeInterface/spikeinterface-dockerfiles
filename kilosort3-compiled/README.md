@@ -29,7 +29,7 @@ Licenses for Matlab and toolboxes are needed only for compiling kilosort as Stan
 - Compile Kilosort mexfiles:
   - Set Matlab's workspace folder to `<git-cloned-path>/Kilosort/CUDA`
   - In Matlab console run:
-    ```
+    ```matlab
     >> mexGPUall
     ```
 
