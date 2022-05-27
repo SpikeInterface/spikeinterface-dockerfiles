@@ -21,7 +21,7 @@ There are four main steps to generate a functional kilosort3-compiled docker ima
 - Signal Processing Toolbox
 - Statistics and Machine Learning Toolbox
 
-Licenses for Matlab and toolboxes are needed only for compiling ironclust as Standalone Application and to generate the base Docker image. After this process, no license will be required, either to extend the base image or to run the sorter.
+Licenses for Matlab and toolboxes are needed only for compiling kilosort as Standalone Application and to generate the base Docker image. After this process, no license will be required, either to extend the base image or to run the sorter.
 
 ## Kilosort Setup 
 - Git clone or Download kilosort [source code](https://github.com/MouseLand/Kilosort)
