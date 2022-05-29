@@ -19,9 +19,6 @@ function ks_master(fpath)
         rez                = fitTemplates(rez, DATA, uproj);  % fit templates iteratively
         rez                = fullMPMU(rez, DATA);% extract final spike times (overlapping extraction)
 
-        rez = merge_posthoc2(rez);
-        fprintf('merge_posthoc2 error. Reporting pre-merge result\n');
-
         % save python results file for Phy
         rezToPhy(rez, fullfile(fpath));
     catch
