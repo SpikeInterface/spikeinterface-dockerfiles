@@ -5,8 +5,10 @@ Drag and drop the data folder on either `.bat` file (see `launch_scripts` folder
 
 ![Drag and Drop](images/DragAndDropDemo.gif)
 
-Which launch script should you pick?   
-  `SpikeInterface_OneOff.bat` will start a on-off sesssion. The container will self-destroy upon shutdown (not just closing the tab though). If the tab is closed, go back to your session at this address: http://localhost:8888/lab?token=mytoken.  
+_Which launch script should you pick?_   
+  
+  `SpikeInterface_OneOff.bat` will start a one-off sesssion. The container will self-destroy upon shutdown (not just closing the tab though). If the tab is closed, go back to your session at this address: http://localhost:8888/lab?token=mytoken.  
+   
   `SpikeInterface_Persist.bat` will start a persistent container that can be reused. The drawback is that data folder will stay the same until the container is stopped and remove (which can be done following instructions below).  
 In the `.bat`, please replace "mytoken" by some other word of your choice.  
 
@@ -31,7 +33,7 @@ Files can be downloaded with right-click > download.
 
 
 **Important Note**  
-The `--rm` flag means the container is a on-off (will self-destroy upon closure). 
+The `--rm` flag means the container is a one-off (will self-destroy upon closure). 
 To make the container persitant, remove the `--rm flag` from the docker call. In which case, the container will persist. To start a stopped container, run `docker start spikeinterface` in a terminal, or use the Docker Desktop interface to start it.  
 
 ### How to build this image
