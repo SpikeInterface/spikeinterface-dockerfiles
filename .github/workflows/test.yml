@@ -28,4 +28,4 @@ jobs:
           pip install pytest pandas scipy scikit-learn
       - name: Test singularity
         run: |
-          pytest
+          pytest -v
