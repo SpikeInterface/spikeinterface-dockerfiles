@@ -25,6 +25,7 @@ jobs:
           conda install -c conda-forge singularity
           pip install pytest
           pip install pandas
+          pip install scipy
       - name: Test singularity
         run: |
           pytest
