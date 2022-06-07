@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install spikeinterface
           pip install spython
-          pip install pytest pandas scipy scikit-learn
+          pip install pytest h5py # pandas scipy scikit-learn
       - name: Test singularity
         run: |
           pytest -v
