@@ -23,9 +23,7 @@ jobs:
           singularity-version: 3.8.3
       - name: Install dependencies
         run: |
-          pip install spikeinterface
-          pip install spython
-          pip install pytest h5py # pandas scipy scikit-learn
+          pip install spikeinterface[full] spython pytest
       - name: Test singularity
         run: |
           pytest -v
