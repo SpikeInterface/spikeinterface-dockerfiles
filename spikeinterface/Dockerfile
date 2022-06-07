@@ -27,12 +27,15 @@ RUN conda update -y conda && \
      conda install -y pip
 
 # Conda installs
-RUN conda config --set channel_priority flexible && \
-    conda install -y -c conda-forge nb_conda_kernels \
-    jupyter_contrib_nbextensions \
+# RUN conda config --set channel_priority flexible && \
+RUN conda install -y -c conda-forge \
+    nb_conda_kernels \
     jupyterlab-git \
     pynwb && \
-    conda clean -tipsy
+    conda clean -tipy
+
+# Install jupyter_contrib_nbextensions with pip (conda install has major conflicts)
+RUN pip install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 
 # Create environment
 RUN ln -s /srv/spikeinterface /home/$NB_USER/

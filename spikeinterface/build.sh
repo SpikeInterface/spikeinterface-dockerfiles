@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t wanglabneuro/spikeinterface:0.1 .
+docker build -t spikeinterface/spikeinterface:0.2 .
