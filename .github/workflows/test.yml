@@ -18,11 +18,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           python-version: 3.8
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
       - name: Install dependencies
         run: |
           pip install spikeinterface
           pip install spython
-          conda install -c conda-forge singularity
           pip install pytest pandas scipy scikit-learn
       - name: Test singularity
         run: |
