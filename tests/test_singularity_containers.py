@@ -2,7 +2,7 @@ from spikeinterface.extractors import toy_example
 import spikeinterface.sorters as ss
 
 recording = toy_example(num_segments=1, num_channels=32, duration=120)[0]
-recording2 = recording.save("test_recording")
+recording2 = recording.save(folder="test_recording")
 # recording2 = si.load_extractor("test_recording11")
 
 
