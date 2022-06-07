@@ -23,6 +23,7 @@ jobs:
           pip install spikeinterface
           pip install spython
           conda install -c conda-forge singularity
+          pip install pytest
       - name: Test singularity
         run: |
           pytest
