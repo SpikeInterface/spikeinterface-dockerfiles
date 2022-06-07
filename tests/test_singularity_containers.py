@@ -22,3 +22,12 @@ def test_spyking_circus():
         singularity_image="spikeinterface/spyking-circus-base:1.1.0",
         verbose=True
     )
+
+def test_tridecluos():
+
+    ss.run_tridesclous(
+        recording2,
+        output_folder="tridesclous",
+        singularity_image="spikeinterface/tridesclous-base:1.6.5",
+        verbose=True
+    )
