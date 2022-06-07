@@ -23,9 +23,7 @@ jobs:
           pip install spikeinterface
           pip install spython
           conda install -c conda-forge singularity
-          pip install pytest
-          pip install pandas
-          pip install scipy
+          pip install pytest pandas scipy scikit-learn
       - name: Test singularity
         run: |
           pytest
