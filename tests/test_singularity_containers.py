@@ -1,11 +1,10 @@
-#from spikeinterface.extractors import toy_example
 import spikeinterface.sorters as ss
 from spikeinterface.core.testing_tools import generate_recording
 
 recording = generate_recording(
     num_channels=32,
     sampling_frequency=30000.,  # in Hz
-    durations=[120],  #  in s for 2 segments
+    durations=[120],
     set_probe=True,
     ndim=2,
 )
@@ -23,11 +22,22 @@ def test_spyking_circus():
         verbose=True
     )
 
+
 def test_tridecluos():
 
     ss.run_tridesclous(
         recording2,
         output_folder="tridesclous",
         singularity_image="spikeinterface/tridesclous-base:1.6.5",
+        verbose=True
+    )
+
+
+def test_ironclust():
+
+    ss.run_tridesclous(
+        recording2,
+        output_folder="ironclust",
+        singularity_image="spikeinterface/ironclust-compiled-base:5.9.8",
         verbose=True
     )
