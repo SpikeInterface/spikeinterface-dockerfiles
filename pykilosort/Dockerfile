@@ -12,9 +12,6 @@ RUN apt install -y --no-install-recommends \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Make bash the default shell, for compatibility with conda
-# SHELL [ "/bin/bash", "--login",  "-c" ]
-
 # install miniconda
 ENV MINICONDA_VERSION 4.12.0
 ENV CONDA_DIR /home/miniconda3
@@ -25,18 +22,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/m
     rm ~/miniconda.sh
 # RUN echo 'export PATH="~/miniconda/bin:$PATH"' >> ~/.bashrc 
 ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda update conda
-
-# chmod +x ~/miniconda.sh && \
-# ~/miniconda.sh -b -p $CONDA_DIR && \
-# rm ~/miniconda.sh
-
-# # make non-activate conda commands available
-# ENV PATH=$CONDA_DIR/bin:$PATH
-# # make conda activate command available from /bin/bash --login shells
-# RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile 
-# # make conda activate command available from /bin/bash --interactive shells
-# RUN conda init bash
+RUN conda update conda && \
+    conda install conda-build
 
 # Install IBL port of pykilosort
 RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
