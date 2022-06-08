@@ -35,7 +35,7 @@ def test_tridecluos():
 
 def test_ironclust():
 
-    ss.run_tridesclous(
+    ss.run_ironclust(
         recording2,
         output_folder="ironclust",
         singularity_image="spikeinterface/ironclust-compiled-base:5.9.8",
