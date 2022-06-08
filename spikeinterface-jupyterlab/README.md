@@ -20,10 +20,10 @@ Files can be downloaded with right-click > download.
 2. Start the container  
 *On Linux/MacOS*  
 `export JUPYTER_TOKEN='mytoken'`
-`docker run -d --rm --name spikeinterface -v "${PWD}":/home/jovyan/data -p 8888:8888 -e JUPYTER_TOKEN spikeinterface/spikeinterface:0.2`  
+`docker run -d --rm --name spikeinterface-jupyterlab -v "${PWD}":/home/jovyan/data -p 8888:8888 -e JUPYTER_TOKEN spikeinterface/spikeinterface-jupyterlab:0.2`  
 *On Windows*  
 `set JUPYTER_TOKEN=mytoken`
-`docker run -d --rm --name spikeinterface -v "%CD%":/home/jovyan/data -p 8888:8888 -e JUPYTER_TOKEN spikeinterface/spikeinterface:0.2`  
+`docker run -d --rm --name spikeinterface-jupyterlab -v "%CD%":/home/jovyan/data -p 8888:8888 -e JUPYTER_TOKEN spikeinterface/spikeinterface-jupyterlab:0.2`  
   
   * Replace "mytoken" by some other word. 
   * If you built the image (see below), remove `spikeinterface/` or replace it with your docker handle. 
@@ -41,7 +41,7 @@ The container image is [available on DockerHub](https://hub.docker.com/repositor
 
 If you want to build it, follow the instructions below.
 Open a terminal, navigate to the spikeinterface directory, then run:   
-`docker build -t spikeinterface:0.2 .`  
+`docker build -t spikeinterface-jupyterlab:0.2 .`  
 On Linux systems, you can also use the build script (after making it executable `chmod +x build.sh`):    
 `./build.sh`  
 
