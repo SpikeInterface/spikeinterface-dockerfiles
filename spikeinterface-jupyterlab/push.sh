@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push spikeinterface/spikeinterface-jupyterlab:0.2
+docker push --all-tags spikeinterface/spikeinterface-jupyterlab

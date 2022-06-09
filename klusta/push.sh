@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push spikeinterface/klusta-base:0.2.7
+docker push --all-tags spikeinterface/klusta-base
