@@ -3,7 +3,7 @@ FROM nvidia/cuda:10.0-base-ubuntu18.04
 LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
 
 # USER root
-# # Ubuntu package installs
+# Ubuntu package installs
 RUN apt update 
 RUN apt install -y --no-install-recommends \
     libfftw3-dev \
@@ -24,6 +24,11 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/m
 ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda update conda && \
     conda install conda-build
+
+# make conda activate command available from /bin/bash --login shells
+RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile 
+# make conda activate command available from /bin/bash --interactive shells
+RUN conda init bash
 
 # Install IBL port of pykilosort
 RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
