@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push spikeinterface/mountainsort4-base:1.0.0
+docker push --all-tags spikeinterface/mountainsort4-base

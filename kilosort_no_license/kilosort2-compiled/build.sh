@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t spikeinterface/kilosort2-compiled-base:0.1.0 .
+docker build -t spikeinterface/kilosort2-compiled-base:latest -t spikeinterface/kilosort2-compiled-base:0.1.0 .
 
