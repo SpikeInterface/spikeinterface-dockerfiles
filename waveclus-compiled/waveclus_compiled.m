@@ -1,4 +1,4 @@
-function waveclust_compiled(outputFolder)
+function waveclus_compiled(outputFolder)
 
     % par.mat file should contain a variable called par_input
     load(fullfile(outputFolder, 'par_input.mat'));

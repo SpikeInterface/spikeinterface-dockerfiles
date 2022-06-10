@@ -20,7 +20,7 @@ There are three main steps for generating a functional Waveclus docker image:
 - Git clone or Download waveclus [source code](https://github.com/csn-le/wave_clus)
 - Open Matlab
 - Set Matlab's workspace folder to `/path/to/spikeinterface-dockerfiles/waveclus-compiled`
-- Run `mcc` command with `waveclus_compiled.m` as base and adding path to git cloned waveclust:
+- Run `mcc` command with `waveclus_compiled.m` as base and adding path to git cloned waveclus:
 ```matlab
 >> mcc -m waveclus_compiled.m -a <git-cloned-path>/wave_clus
 ```
