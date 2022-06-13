@@ -30,7 +30,7 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 # make conda activate command available from /bin/bash --interactive shells
 RUN conda init bash
 
-# Install IBL port of pykilosort
+# Install python port of pykilosort
 RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
 
