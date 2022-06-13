@@ -4,8 +4,8 @@ LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
 
 # USER root
 # Ubuntu package installs
-RUN apt update 
-RUN apt install -y --no-install-recommends \
+RUN apt update && \
+    apt install -y --no-install-recommends \
     libfftw3-dev \
     git \
     wget && \
@@ -20,7 +20,7 @@ ENV LATEST_CONDA_SCRIPT "Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh"
 RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
-# RUN echo 'export PATH="~/miniconda/bin:$PATH"' >> ~/.bashrc 
+# RUN echo 'export PATH="/home/miniconda3/bin:$PATH"' >> ~/.bashrc 
 ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda update conda && \
     conda install conda-build
@@ -39,10 +39,6 @@ RUN conda env create -f pyks2.yml
 
 # Install pykilosort
 SHELL ["conda","run","-n","pyks2","/bin/bash","-c"]
-# RUN conda install --quiet --yes ipykernel && \
-#     python -m ipykernel install --user --name pyks2 --display-name "pyKilosort" && \
-RUN conda develop .
-
-
-
-
+RUN conda install --quiet --yes ipykernel && \
+    python -m ipykernel install --user --name pyks2 --display-name "pyKilosort" && \
+    conda develop .   
