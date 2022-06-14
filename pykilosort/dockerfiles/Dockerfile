@@ -20,7 +20,6 @@ ENV LATEST_CONDA_SCRIPT "Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh"
 RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
-# RUN echo 'export PATH="/home/miniconda3/bin:$PATH"' >> ~/.bashrc 
 ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda update conda && \
     conda install conda-build
@@ -33,6 +32,9 @@ RUN conda init bash
 # Install python port of pykilosort
 RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
+# Switch to MouseLand/develop branch - may revert to kushbanga/drift_test_stable in the future
+RUN git remote add MouseLand https://github.com/MouseLand/pykilosort.git && \
+    git fetch MouseLand && git checkout MouseLand/develop && git checkout -b develop
 
 # Create environment
 RUN conda env create -f pyks2.yml
@@ -42,3 +44,5 @@ SHELL ["conda","run","-n","pyks2","/bin/bash","-c"]
 RUN conda install --quiet --yes ipykernel && \
     python -m ipykernel install --user --name pyks2 --display-name "pyKilosort" && \
     conda develop .   
+
+WORKDIR /
