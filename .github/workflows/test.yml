@@ -26,4 +26,4 @@ jobs:
           pip install spikeinterface[full] spython pytest tridesclous
       - name: Test singularity
         run: |
-          pytest -v
+          pytest -v tests/test_singularity_containers.py
