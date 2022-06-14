@@ -37,6 +37,8 @@ RUN conda init bash
 # Install python port of pykilosort
 RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
+RUN git remote add MouseLand https://github.com/MouseLand/pykilosort.git && \
+    git fetch MouseLand && git checkout MouseLand/develop && git checkout -b develop
 
 # Create environment
 RUN conda env create -f pyks2.yml

@@ -35,5 +35,5 @@ from pykilosort import run, add_default_handler, np1_probe, np2_probe
 data_path = Path('/data/Allen_Institute_NP1/continuous_1min.bin')
 dir_path = Path('/data/Allen_Institute_NP1/pyKS_output')
 add_default_handler(level='INFO') # print output as the algorithm runs
-run(data_path, dir_path=dir_path, probe=np1_probe())
+run(data_path, dir_path=dir_path, probe=np1_probe(sync_channel=False))
 ```
