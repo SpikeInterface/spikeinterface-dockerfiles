@@ -1,4 +1,3 @@
 #!/bin/bash
 
-docker push spikeinterface/kilosort3-compiled-base:0.1.0
-
+docker image push --all-tags spikeinterface/kilosort3-compiled-base
