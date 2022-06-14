@@ -1,5 +1,7 @@
 function hdsort_compiled(outputFolder)
     try
+        % cding to outputFolder is needed to save output files in the correct place
+        cd(fullfile(outputFolder))
 
         %% Load sorter configs and params
         load(fullfile(outputFolder, 'configsParams.mat'))
