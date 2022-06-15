@@ -23,7 +23,17 @@ jobs:
           singularity-version: 3.8.3
       - name: Install dependencies
         run: |
-          pip install spikeinterface[full] spython pytest tridesclous
+          sudo apt update
+          sudo apt install git 
+
+          # get SI form master
+          git clone https://github.com/SpikeInterface/spikeinterface.git
+          cd spikeinterface
+          pip install .
+          pip install -r requirements_full.txt
+
+          cd ..
+          pip install spython pytest
       - name: Test singularity
         run: |
           pytest -v tests/test_singularity_containers.py
