@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t spikeinterface/combinato:latest -t spikeinterface/combinato:0.1.0 .
+docker build -t spikeinterface/combinato-base:latest -t spikeinterface/combinato-base:0.1.0 .
