@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push --all-tags spikeinterface/pykilosort
+docker push --all-tags spikeinterface/pykilosort-base

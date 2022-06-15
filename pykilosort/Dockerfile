@@ -36,13 +36,19 @@ WORKDIR /src/pykilosort
 RUN git remote add MouseLand https://github.com/MouseLand/pykilosort.git && \
     git fetch MouseLand && git checkout MouseLand/develop && git checkout -b develop
 
+# modify env file so that env extends on base
+RUN sed -i "s/pyks2/base/" pyks2.yml
+
 # Create environment
-RUN conda env create -f pyks2.yml
+RUN conda env update --name base --file pyks2.yml --prune
 
 # Install pykilosort
-SHELL ["conda","run","-n","pyks2","/bin/bash","-c"]
 RUN conda install --quiet --yes ipykernel && \
-    python -m ipykernel install --user --name pyks2 --display-name "pyKilosort" && \
+    python -m ipykernel install --user --display-name "pyKilosort" && \ 
     conda develop .   
 
+# install phylib from master because of read-only bug (https://github.com/cortex-lab/phylib/pull/35)
+RUN pip uninstall -y phylib && pip install git+https://github.com/cortex-lab/phylib.git
+
+#--name pyks2
 WORKDIR /
