@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker push --all-tags spikeinterface/combinato
+docker push --all-tags spikeinterface/combinato-base
