@@ -43,7 +43,7 @@ def test_klusta():
         verbose=True
     )
 
-@pytest.mark.xfail  # FAILING: investigate why
+@pytest.mark.xfail(reason="FAILING: investigate why")
 def test_mountainsort4():
 
     ss.run_mountainsort4(
