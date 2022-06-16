@@ -13,7 +13,7 @@ recording = generate_recording(
 
 recording2 = recording.save(folder="test_recording")
 
-kwargs = dict(recordin=recording2, verbose=True, singularity_image=True)
+kwargs = dict(recording=recording2, verbose=True, singularity_image=True)
 
 
 @pytest.mark.xfail(reason="FAILING: investigate why")
