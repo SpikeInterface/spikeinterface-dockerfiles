@@ -5,7 +5,8 @@ LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
 # Ubuntu package installs
 RUN apt update && \
     apt install -y --no-install-recommends \
-    git && \
+    git \
+    nano && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -27,10 +28,10 @@ RUN git clone https://github.com/jniediek/combinato.git
 ENV COMBINATO_DIR /src/combinato
 ENV PATH=$PATH:$COMBINATO_DIR
 ENV PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:$COMBINATO_DIR
-RUN echo $' \n\
-    PATH=$PATH:/src/combinato \n\
-    PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:$COMBINATO_DIR \n\
-    export PATH PYTHONPATH  ' >> /root/.bashrc
+RUN echo '\n\
+export PATH=$PATH:/src/combinato\n\
+export PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:/src/combinato\n\
+export COMBINATO_PATH=/src/combinato' >> /root/.bashrc
 
 # Install Combinato
 WORKDIR /src/combinato
