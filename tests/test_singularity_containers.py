@@ -14,7 +14,7 @@ recording = generate_recording(
 recording2 = recording.save(folder="test_recording")
 
 # python-based
-@pytest.mark.xfail  # FAILING: investigate why
+@pytest.mark.xfail(reason="FAILING: investigate why")
 def test_spyking_circus():
 
     ss.run_spykingcircus(
