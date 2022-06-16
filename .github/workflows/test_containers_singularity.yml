@@ -1,4 +1,4 @@
-name: Full spikeinterface tests
+name: Test sorter images in singularity
 
 on:
   pull_request:
@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements_full.txt
 
           cd ..
-          pip install spython pytest
+          pip install spython pytest tridesclous
       - name: Test singularity
         run: |
           pytest -v tests/test_singularity_containers.py
