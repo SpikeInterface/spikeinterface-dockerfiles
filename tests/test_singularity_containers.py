@@ -3,8 +3,8 @@ import shutil
 
 import pytest
 
+import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
-from spikeinterface.core.testing_tools import generate_recording
 
 
 @pytest.fixture
@@ -18,19 +18,16 @@ def work_dir(request, tmpdir_factory):
 
 @pytest.fixture
 def run_kwargs(work_dir):
-
-    test_recording = generate_recording(
+    test_recording, _ = se.toy_example(
+        duration=120,
+        seed=0,
         num_channels=32,
-        sampling_frequency=30000.0,  # in Hz
-        durations=[120],
-        set_probe=True,
-        ndim=2,
+        num_segments=1
     )
-    test_recording = test_recording.save(folder="test_recording")
+    test_recording = test_recording.save(name='toy')
     return dict(recording=test_recording, verbose=True, singularity_image=True)
 
 
-@pytest.mark.xfail(reason="FAILING: investigate why")
 def test_spyking_circus(run_kwargs):
     ss.run_spykingcircus(output_folder="spyking_circus", **run_kwargs)
 
