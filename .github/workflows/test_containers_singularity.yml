@@ -26,6 +26,7 @@ jobs:
           sudo apt install git 
 
           pip install -r requirements_test.txt
-      # - name: Test singularity
-      #   run: |
-      #     pytest -v tests/test_singularity_containers.py
+      - name: Test tridesclous image
+        run: pytest -v tests/test_singularity_containers.py::test_tridesclous
+      - name: Test spyking-circus image
+        run: pytest -v tests/test_singularity_containers.py::test_spyking_circus
