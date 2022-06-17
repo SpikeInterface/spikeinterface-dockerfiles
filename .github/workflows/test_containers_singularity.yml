@@ -27,6 +27,8 @@ jobs:
 
           pip install -r requirements_test.txt
       - name: Test tridesclous image
-        run: pytest -v tests/test_singularity_containers.py::test_tridesclous
+        run: |
+          pip install tridesclous
+          pytest -sv tests/test_singularity_containers.py::test_tridesclous
       - name: Test spyking-circus image
-        run: pytest -v tests/test_singularity_containers.py::test_spyking_circus
+        run: pytest -sv tests/test_singularity_containers.py::test_spyking_circus
