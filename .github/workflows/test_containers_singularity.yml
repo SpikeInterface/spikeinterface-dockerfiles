@@ -19,7 +19,7 @@ jobs:
       - name: Build Tridesclous Docker image
         run: |
           cd tridesclous
-          ./build.sh
+          bash build.sh
           cd ..
           mkdir -p output/docker_images
           docker save spikeinterface/tridesclous-base:latest > output/docker_images/tridesclous-image.tar
