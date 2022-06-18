@@ -1,6 +1,7 @@
 name: Test sorter images in singularity
 
 on:
+  workflow_dispatch:
   push:
     branches: [add_ci_tests]
 
