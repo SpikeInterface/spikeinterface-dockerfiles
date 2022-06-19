@@ -1,4 +1,4 @@
-git+https://github.com/Tauffer-Consulting/spikeinterface.git@singularity-image-check#egg=spikeinterface[full]
+git+https://github.com/chyumin/spikeinterface.git@singularity-image-check#egg=spikeinterface[full]
 docker==5.0.3
 spython==0.2.1
 pytest==7.1.2
