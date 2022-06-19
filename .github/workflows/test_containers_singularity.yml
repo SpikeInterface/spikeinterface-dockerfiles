@@ -6,12 +6,7 @@ on:
 jobs:
   docker-build-images:
     name: Docker build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        # "macos-latest", "windows-latest"
-        os: ["ubuntu-latest", ]
+    runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
