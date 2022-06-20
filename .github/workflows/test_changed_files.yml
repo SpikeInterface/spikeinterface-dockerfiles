@@ -10,7 +10,7 @@ jobs:
     name: Set jobs by changed Dockerfile
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      sorters: ${{ steps.set-matrix.outputs.sorters }}
     steps:
       - name: Checkount
         uses: actions/checkout@v3
@@ -22,19 +22,26 @@ jobs:
       - name: Set jobs' matrix
         id: set-matrix
         run: |
-        filtered=''
-        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          if [[ "$file" == *"Dockerfile"* ]]; then
-            parsed=${file%*/Dockerfile*}
-            filtered="${filtered} ${parsed}"
-          fi
-        done
-        echo "::set-output name=matrix::${filtered}"
+          sorters="["
+          for file in /Dockerfilesabc/Dockerfiles def/Dockerfiles huea; do
+            if [[ "$file" == *"Dockerfile"* ]]; then
+              # Removing /Dockerfile from string
+              parsed=${file%*/Dockerfile*}
+
+              # Appending to sorters Array
+              sorters+="\"${parsed}\", "
+            fi
+          done
+          sorters=${sorters%*, *}
+          sorters+="]"
+          echo $sorters
+
+          echo "::set-output name=sorters::${sorters}"
   test:
     needs: set-matrix-job
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        sorter: ${{ needs.set-matrix-job.outputs.matrix }}
+        sorter: ${{ fromJSON(needs.set-matrix-job.outputs.matrix) }}
     steps:
       - run: echo ${{ matrix.sorter }}
