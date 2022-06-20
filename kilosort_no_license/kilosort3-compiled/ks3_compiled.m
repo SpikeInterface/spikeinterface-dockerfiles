@@ -13,10 +13,15 @@ function ks3_compiled(fpath)
 
         % run data registration
         if isfield(ops, 'do_correction')
-            fprintf("Drift correction ENABLED")
             do_correction = ops.do_correction;
         else 
             do_correction = 1;
+        end
+
+        if do_correction
+            fprintf("Drift correction ENABLED\n");
+        else
+            fprintf("Drift correction DISABLED\n");
         end
         rez = datashift2(rez, do_correction); % last input is for shifting data
 

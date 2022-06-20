@@ -13,10 +13,15 @@ function ks2_5_compiled(fpath)
 
         % NEW STEP TO DO DATA REGISTRATION
         if isfield(ops, 'do_correction')
-            fprintf("Drift correction ENABLED")
             do_correction = ops.do_correction;
         else 
             do_correction = 1;
+        end
+
+        if do_correction
+            fprintf("Drift correction ENABLED\n");
+        else
+            fprintf("Drift correction DISABLED\n");
         end
         rez = datashift2(rez, do_correction); % last input is for shifting data
 
