@@ -64,6 +64,7 @@ def test_hdsort(run_kwargs):
     print(sorting)
 
 
+@pytest.mark.skip(reason='Image for KiloSort 1 not implemented yet')
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
