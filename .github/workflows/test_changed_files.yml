@@ -6,42 +6,73 @@ on:
     types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
-  set-matrix-job:
-    name: Set jobs by changed Dockerfile
-    runs-on: ubuntu-latest
+  prepare-matrix-jobs:
+    name: Prepare Build and Test Jobs
+    runs-on: "ubuntu-latest"
     outputs:
-      sorters: ${{ steps.set-matrix.outputs.sorters }}
+      has_changed_files: ${{ steps.changed-files.outputs.any_changed }}
+      sorters: ${{ steps.get-changed-sorters.outputs.sorters }}
     steps:
-      - name: Checkount
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v23
+        with:
+          files: |
+            */Dockerfile
 
-      - name: Set jobs' matrix
-        id: set-matrix
+      - name: Prepare jobs matrix
+        id: get-changed-sorters
         run: |
+          # sorters variable will be a JSON-like array
           sorters="["
-          for file in /Dockerfilesabc/Dockerfiles def/Dockerfiles huea; do
-            if [[ "$file" == *"Dockerfile"* ]]; then
-              # Removing /Dockerfile from string
-              parsed=${file%*/Dockerfile*}
 
-              # Appending to sorters Array
-              sorters+="\"${parsed}\", "
-            fi
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            # Removing /Dockerfile from string
+            parsed=${file%*/Dockerfile*}
+
+            # Appending to final string
+            sorters+="\"${parsed}\", "
           done
           sorters=${sorters%*, *}
           sorters+="]"
-          echo $sorters
 
+          echo ${sorters}
           echo "::set-output name=sorters::${sorters}"
-  test:
-    needs: set-matrix-job
-    runs-on: "ubuntu-latest"
+
+  build-and-test-image:
+    name: build (${{ matrix.sorter }})
+    if: needs.prepare-matrix-jobs.outputs.has_changed_files == 'true'
+    needs: prepare-matrix-jobs
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        sorter: ${{ fromJSON(needs.set-matrix-job.outputs.matrix) }}
+        # "macos-latest", "windows-latest"
+        os: ["ubuntu-latest", ]
+        sorter: ${{ fromJSON(needs.prepare-matrix-jobs.outputs.sorters) }}
     steps:
-      - run: echo ${{ matrix.sorter }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          python-version: 3.8
+
+      - name: Build ${{ matrix.sorter }} Docker image
+        run: |
+          cd ${{ matrix.sorter }}
+          bash build.sh
+          cd ..
+
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+
+      - name: Install dependencies & Test ${{ matrix.sorter }} image
+        run: |
+          if  [[ ${{ matrix.sorter }} == 'tridesclous' ]]
+            pip install tridesclous
+          fi
+          pip install -r requirements_test.txt
+          pytest -sv tests/test_singularity_containers.py::test_${{ matrix.sorter }}

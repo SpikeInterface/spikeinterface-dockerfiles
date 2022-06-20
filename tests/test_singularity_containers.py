@@ -21,15 +21,15 @@ def run_kwargs(work_dir):
     test_recording, _ = se.toy_example(
         duration=30,
         seed=0,
-        num_channels=32,
+        num_channels=64,
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
     return dict(recording=test_recording, verbose=True, singularity_image=True)
 
 
-def test_spyking_circus(run_kwargs):
-    sorting = ss.run_spykingcircus(output_folder="spyking_circus", **run_kwargs)
+def test_spykingcircus(run_kwargs):
+    sorting = ss.run_spykingcircus(output_folder="spykingcircus", **run_kwargs)
     print(sorting)
 
 
