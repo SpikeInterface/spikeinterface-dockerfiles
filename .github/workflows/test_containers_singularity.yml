@@ -4,32 +4,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  docker-build-images:
-    name: Docker build
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Build Tridesclous Docker image
-        run: |
-          cd tridesclous
-          bash build.sh
-          cd ..
-          mkdir -p output/docker_images
-          docker save spikeinterface/tridesclous-base:latest > output/docker_images/tridesclous-image.tar
-
-      - name: Temporarily save Docker Image
-        uses: actions/upload-artifact@v2
-        with:
-          name: docker-artifact
-          path: output/docker_images
-          retention-days: 1
-
   test-images:
     name: Test on (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    needs: docker-build-images
     strategy:
       fail-fast: false
       matrix:
@@ -39,25 +16,16 @@ jobs:
       - uses: actions/checkout@v3
         with:
           python-version: 3.8
+
       - uses: eWaterCycle/setup-singularity@v7
         with:
           singularity-version: 3.8.3
-      - name: Retrieve saved Docker image
-        uses: actions/download-artifact@v2
-        with:
-          name: docker-artifact
-          path: output/docker_images
+
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install git 
-
+          pip install tridesclous
           pip install -r requirements_test.txt
-      - name: Docker Load
-        run: docker load < output/docker_images/tridesclous-image.tar
       - name: Test tridesclous image
         run: |
           pip install tridesclous
-          pytest -sv tests/test_singularity_containers.py::test_tridesclous
-      # - name: Test spyking-circus image
-      #   run: pytest -sv tests/test_singularity_containers.py::test_spyking_circus
+          pytest -sv tests/test_singularity_containers.pytest_tridesclous
