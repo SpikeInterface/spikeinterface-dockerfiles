@@ -43,7 +43,7 @@ jobs:
           echo "::set-output name=sorters::${sorters}"
 
   build-and-test-image:
-    name: build (${{ matrix.sorter }})
+    name: Build and Test (${{ matrix.sorter }})
     if: needs.prepare-matrix-jobs.outputs.has_changed_files == 'true'
     needs: prepare-matrix-jobs
     runs-on: ${{ matrix.os }}
@@ -71,7 +71,7 @@ jobs:
 
       - name: Install dependencies & Test ${{ matrix.sorter }} image
         run: |
-          if  [[ ${{ matrix.sorter }} == 'tridesclous' ]]
+          if  [[ ${{ matrix.sorter }} == 'tridesclous' ]]; then
             pip install tridesclous
           fi
           pip install -r requirements_test.txt
