@@ -20,5 +20,3 @@ RUN pip install h5py
 RUN pip install loky packaging
 
 RUN pip install tridesclous==1.6.5
-
-# test
