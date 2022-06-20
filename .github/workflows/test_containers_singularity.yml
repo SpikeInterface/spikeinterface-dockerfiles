@@ -25,7 +25,8 @@ jobs:
         run: |
           pip install tridesclous
           pip install -r requirements_test.txt
+
       - name: Test tridesclous image
         run: |
           pip install tridesclous
-          pytest -sv tests/test_singularity_containers.pytest_tridesclous
+          pytest -sv tests/test_singularity_containers.py
