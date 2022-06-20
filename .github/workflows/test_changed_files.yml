@@ -76,3 +76,10 @@ jobs:
           fi
           pip install -r requirements_test.txt
           pytest -sv tests/test_singularity_containers.py::test_${{ matrix.sorter }}
+
+      - name: Push image
+        run: |
+          echo TO BE DONE
+          # cd ${{ matrix.sorter }}
+          # bash push.sh
+          # cd ..
