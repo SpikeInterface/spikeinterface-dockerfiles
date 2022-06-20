@@ -25,9 +25,9 @@ WORKDIR /src
 RUN git clone https://github.com/jniediek/combinato.git
 
 # Add Combinato repository to paths
-ENV COMBINATO_DIR /src/combinato
-ENV PATH=$PATH:$COMBINATO_DIR
-ENV PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:$COMBINATO_DIR
+ENV COMBINATO_PATH=/src/combinato
+ENV PATH=$PATH:$COMBINATO_PATH
+ENV PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:$COMBINATO_PATH
 RUN echo '\n\
 export PATH=$PATH:/src/combinato\n\
 export PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:/src/combinato\n\
