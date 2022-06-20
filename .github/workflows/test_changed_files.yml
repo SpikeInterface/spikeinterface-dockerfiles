@@ -6,9 +6,11 @@ on:
     types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
-  test:
-    name: Test changed-files
-    runs-on: "ubuntu-latest"
+  set-matrix-job:
+    name: Set jobs by changed Dockerfile
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkount
         uses: actions/checkout@v3
@@ -17,8 +19,22 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v23
 
-      - name: List all changed files
+      - name: Set jobs' matrix
+        id: set-matrix
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+        filtered=''
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          if [[ "$file" == *"Dockerfile"* ]]; then
+            parsed=${file%*/Dockerfile*}
+            filtered="${filtered} ${parsed}"
+          fi
+        done
+        echo "::set-output name=matrix::${filtered}"
+  test:
+    needs: set-matrix-job
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        sorter: ${{ needs.set-matrix-job.outputs.matrix }}
+    steps:
+      - run: echo ${{ matrix.sorter }}
