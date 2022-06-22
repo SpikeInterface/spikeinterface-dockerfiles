@@ -33,7 +33,6 @@ def test_spykingcircus(run_kwargs):
     print(sorting)
 
 
-@pytest.mark.xfail(reason="FAILING: investigate why")
 def test_mountainsort4(run_kwargs):
     sorting = ss.run_mountainsort4(output_folder="mountainsort4", **run_kwargs)
     print(sorting)
