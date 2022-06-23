@@ -14,5 +14,3 @@ RUN apt-get update && apt-get install -y packagekit-gtk3-module libcanberra-gtk-
 RUN pip install scikit-build
 RUN pip install cmake>=3.18
 RUN pip install spyking-circus==1.1.0
-
-# test
