@@ -22,6 +22,14 @@ jobs:
         with:
           files: |
             */Dockerfile
+          files_ignore: |
+            hdsort-compiled/*
+            ironclust-compiled/*
+            kilosort_no_license/*
+            kilosort_with_license/*
+            spikeinterface-jupyterlab/*
+            tests/*
+            waveclus-compiled/*
 
       - name: Prepare jobs matrix
         id: get-changed-sorters
