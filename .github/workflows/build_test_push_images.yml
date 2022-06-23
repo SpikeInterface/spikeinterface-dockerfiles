@@ -77,15 +77,11 @@ jobs:
           pip install -r requirements_test.txt
           pytest -sv tests/test_singularity_containers.py::test_${{ matrix.sorter }}
 
-      - name: Docker login
+      - name: Docker login & Push image
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Push image
-        run: |
-          docker tag spikeinterface/{{ matrix.sorter }}:latest {{ env.DOCKER_USER }}/{{ matrix.sorter }}:latest
-          docker push {{ env.DOCKER_USER }}/{{ matrix.sorter }}:latest
-          # cd ${{ matrix.sorter }}
-          # bash push.sh
+          cd ${{ matrix.sorter }}
+          bash push.sh
