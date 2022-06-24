@@ -7,13 +7,20 @@ import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 
 
-@pytest.fixture
-def work_dir(request, tmpdir_factory):
-    tmpdir = tmpdir_factory.mktemp("work_dir")
-    os.chdir(tmpdir)
+@pytest.fixture(autouse=True)
+def work_dir(request, tmp_path):
+    """
+    This fixture, along with "run_kwargs" creates one folder per
+    test function using built-in tmp_path pytest fixture
+
+    The tmp_path will be the working directory for the test function
+
+    At the end of the each test function, a clean up will be done
+    """
+    os.chdir(tmp_path)
     yield
     os.chdir(request.config.invocation_dir)
-    shutil.rmtree(str(tmpdir))
+    shutil.rmtree(str(tmp_path))
 
 
 @pytest.fixture
