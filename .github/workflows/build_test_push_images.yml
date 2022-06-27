@@ -1,9 +1,9 @@
-name: CI/CD
+name: Build, Test and Push changed Dockerfiles
 
 on:
-  pull_request:
-    branches: [main]
-    types: [synchronize, opened, reopened, ready_for_review]
+  push:
+    branches:
+      - main
 
 jobs:
   prepare-matrix-jobs:
