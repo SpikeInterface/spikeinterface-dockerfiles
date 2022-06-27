@@ -71,7 +71,6 @@ jobs:
         run: |
           cd ${{ matrix.sorter }}
           bash build.sh
-          cd ..
 
       - uses: eWaterCycle/setup-singularity@v7
         with:
