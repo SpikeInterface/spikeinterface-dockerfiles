@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
   prepare-matrix-jobs:
@@ -85,6 +88,7 @@ jobs:
           pytest -sv tests/test_singularity_containers.py::test_${{ matrix.sorter }}
 
       - name: Docker login & Push image
+        if: github.ref == 'refs/heads/main'
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
