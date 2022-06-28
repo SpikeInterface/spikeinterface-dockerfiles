@@ -4,8 +4,8 @@ FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 # fix nvidia gpg
-RUN rm /etc/apt/sources.list.d/cuda.list
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+RUN rm -f /etc/apt/sources.list.d/cuda.list
+RUN rm -f /etc/apt/sources.list.d/nvidia-ml.list
 RUN apt-key del 7fa2af80
 RUN apt-get update && apt-get install -y --no-install-recommends wget
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
@@ -50,5 +50,5 @@ RUN git clone https://github.com/paninski-lab/yass \
    && pip install .
 
 # fix versions of scipy and pyyaml (to avoid Loader problem)
-RUN pip install scipy==1.2.0 && pip install pyyaml==5.3
+RUN pip install scipy==1.7.3 && pip install pyyaml==5.3
 
