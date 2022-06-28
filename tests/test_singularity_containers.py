@@ -6,8 +6,6 @@ import pytest
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 
-os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
-
 
 @pytest.fixture(autouse=True)
 def work_dir(request, tmp_path):

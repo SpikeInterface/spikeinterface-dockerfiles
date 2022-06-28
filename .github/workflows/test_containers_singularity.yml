@@ -30,6 +30,8 @@ jobs:
           pip install -r requirements_test.txt
 
       - name: Run test singularity containers
+        env:
+          SINGULARITY_DISABLE_CACHE: true
         run: |
           pip install tridesclous
           pytest -sv tests/test_singularity_containers.py
