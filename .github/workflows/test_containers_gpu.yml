@@ -1,0 +1,36 @@
+name: CI-Test in AWS for GPU
+
+on: [push]
+
+jobs:
+  deploy-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: iterative/setup-cml@v1
+      - uses: actions/checkout@v3
+      - name: Deploy runner on EC2
+        env:
+          REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          cml runner \
+            --cloud=aws \
+            --cloud-region=us-west \
+            --cloud-type=g4dn.xlarge \
+            --labels=cml-gpu
+  train-model:
+    needs: deploy-runner
+    runs-on: [self-hosted, cml-gpu]
+    timeout-minutes: 4320 # 72h
+    container:
+      image: docker://iterativeai/cml:0-dvc2-base1-gpu
+      options: --gpus all
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run test singularity containers with GPU
+        env:
+          REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          pip install -r requirements_test.txt
+          pytest -sv tests/test_singularity_containers.py::test_kilosort3
