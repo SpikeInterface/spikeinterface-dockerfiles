@@ -1,6 +1,9 @@
 name: CI-Test in AWS for GPU
 
-on: [push]
+on:
+  push:
+    branches:
+      - ci-test-gpu
 
 jobs:
   deploy-runner:
@@ -16,7 +19,7 @@ jobs:
         run: |
           cml runner \
             --cloud=aws \
-            --cloud-region=us-west \
+            --cloud-region=us-east-2 \
             --cloud-type=g4dn.xlarge \
             --labels=cml-gpu
   train-model:
