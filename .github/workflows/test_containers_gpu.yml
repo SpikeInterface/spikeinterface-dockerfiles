@@ -32,6 +32,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install singularity dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y squashfs-tools
+
       - uses: eWaterCycle/setup-singularity@v7
         with:
           singularity-version: 3.8.3

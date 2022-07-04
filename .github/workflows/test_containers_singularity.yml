@@ -20,21 +20,6 @@ jobs:
         with:
           python-version: 3.8
 
-
-      - name: Install singularity dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y \
-          build-essential \
-          libssl-dev \
-          uuid-dev \
-          libgpgme11-dev \
-          squashfs-tools \
-          libseccomp-dev \
-          wget \
-          pkg-config \
-          git \
-          cryptsetup
-
       - uses: eWaterCycle/setup-singularity@v7
         with:
           singularity-version: 3.8.3
