@@ -37,41 +37,21 @@ def run_kwargs(work_dir):
     return dict(recording=test_recording, verbose=True, singularity_image=True)
 
 
-def test_spykingcircus(run_kwargs):
-    sorting = ss.run_spykingcircus(output_folder="spykingcircus", **run_kwargs)
+def test_kilosort2(run_kwargs):
+    sorting = ss.run_kilosort2(output_folder="kilosort2", **run_kwargs)
     print(sorting)
 
 
-def test_mountainsort4(run_kwargs):
-    sorting = ss.run_mountainsort4(output_folder="mountainsort4", **run_kwargs)
+def test_kilosort2_5(run_kwargs):
+    sorting = ss.run_kilosort2_5(output_folder="kilosort2_5", **run_kwargs)
     print(sorting)
 
 
-def test_tridesclous(run_kwargs):
-    sorting = ss.run_tridesclous(output_folder="tridesclous", **run_kwargs)
+def test_kilosort3(run_kwargs):
+    sorting = ss.run_kilosort3(output_folder="kilosort3", **run_kwargs)
     print(sorting)
 
 
-def test_klusta(run_kwargs):
-    sorting = ss.run_klusta(output_folder="klusta", **run_kwargs)
-    print(sorting)
-
-
-def test_ironclust(run_kwargs):
-    sorting = ss.run_ironclust(output_folder="ironclust", fGpu=False, **run_kwargs)
-    print(sorting)
-
-
-def test_waveclus(run_kwargs):
-    sorting = ss.run_waveclus(output_folder="waveclus", **run_kwargs)
-    print(sorting)
-
-
-def test_hdsort(run_kwargs):
-    sorting = ss.run_hdsort(output_folder="hdsort", **run_kwargs)
-    print(sorting)
-
-
-def test_kilosort1(run_kwargs):
-    sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
+def test_pykilosort(run_kwargs):
+    sorting = ss.run_pykilosort(output_folder="pykilosort", **run_kwargs)
     print(sorting)

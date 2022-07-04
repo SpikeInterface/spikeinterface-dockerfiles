@@ -22,7 +22,7 @@ jobs:
             --cloud-region=us-east-2 \
             --cloud-type=g4dn.xlarge \
             --labels=cml-gpu
-  train-model:
+  test-gpu-sorters:
     needs: deploy-runner
     runs-on: [self-hosted, cml-gpu]
     timeout-minutes: 4320 # 72h
@@ -31,9 +31,14 @@ jobs:
       options: --gpus all
     steps:
       - uses: actions/checkout@v3
+
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+
       - name: Run test singularity containers with GPU
         env:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           pip install -r requirements_test.txt
-          pytest -sv tests/test_singularity_containers.py::test_kilosort3
+          pytest -sv tests/test_singularity_containers.py::test_tridesclous
