@@ -1,6 +1,7 @@
 name: CI-Test in AWS for GPU
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - ci-test-gpu
@@ -25,17 +26,26 @@ jobs:
   test-gpu-sorters:
     needs: deploy-runner
     runs-on: [self-hosted, cml-gpu]
-    timeout-minutes: 4320 # 72h
+    timeout-minutes: 360 # 6h
     container:
       image: docker://iterativeai/cml:0-dvc2-base1-gpu
-      options: --gpus all
+      options: --privileged --gpus all
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install singularity dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y squashfs-tools
+          sudo apt-get install -y wget squashfs-tools
+          pip install -U pip
+          pip install -r requirements_test.txt
+
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
+          sudo apt update
+          sudo apt install docker-ce
+          pip install docker
 
       - uses: eWaterCycle/setup-singularity@v7
         with:
@@ -45,5 +55,4 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
-          pip install -r requirements_test.txt
-          pytest -sv tests/test_singularity_containers.py::test_tridesclous
+          pytest -sv tests/test_containers_gpu.py
