@@ -34,7 +34,7 @@ def run_kwargs(work_dir):
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
-    return dict(recording=test_recording, verbose=True, docker_image=True)
+    return dict(recording=test_recording, verbose=True, singularity_image=True)
 
 
 def test_kilosort2(run_kwargs):

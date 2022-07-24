@@ -40,13 +40,6 @@ jobs:
           pip install -U pip
           pip install -r requirements_test.txt
 
-          sudo apt install apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
-          sudo apt update
-          sudo apt install docker-ce
-          pip install docker
-
       - uses: eWaterCycle/setup-singularity@v7
         with:
           singularity-version: 3.8.3
