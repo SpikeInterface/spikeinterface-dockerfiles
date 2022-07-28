@@ -2,9 +2,6 @@ name: CI-Test in AWS for GPU
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - ci-test-gpu
 
 jobs:
   deploy-runner:
