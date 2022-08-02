@@ -7,4 +7,4 @@ RUN pip install numpy
 
 RUN pip install requests
 # Install MountainSort4
-RUN pip install mountainsort4==1.0.0
+RUN pip install mountainsort4==1.0.3
