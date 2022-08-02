@@ -52,6 +52,11 @@ def test_kilosort3(run_kwargs):
     print(sorting)
 
 
+def test_yass(run_kwargs):
+    sorting = ss.run_yass(output_folder="yass", **run_kwargs)
+    print(sorting)
+
+
 @pytest.mark.skip(reason="Need to check errors")
 def test_pykilosort(run_kwargs):
     sorting = ss.run_pykilosort(output_folder="pykilosort", **run_kwargs)
