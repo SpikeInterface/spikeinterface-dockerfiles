@@ -75,3 +75,6 @@ def test_hdsort(run_kwargs):
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
+
+def test_combinato(run_kwargs):
+    sorting = ss.run_combinato(output="combinato", **run_kwargs)
