@@ -9,9 +9,9 @@ RUN pip install --no-input pip==21.2.4
 RUN apt-get update && apt-get install -y libgl1-mesa-glx
 
 # need to force some version
-RUN pip install numpy==1.20
+RUN pip install numpy==1.21
 RUN pip install numba
-RUN pip install git+https://github.com/scikit-learn-contrib/hdbscan.git
+RUN pip install hdbscan
 
 
 RUN pip install Cython
