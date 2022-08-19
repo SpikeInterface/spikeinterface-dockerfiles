@@ -72,6 +72,11 @@ def test_hdsort(run_kwargs):
     print(sorting)
 
 
+def test_herdingspikes(run_kwargs):
+    sorting = ss.run_herdingspikes(output_folder="herdingspikes", **run_kwargs)
+    print(sorting)
+
+
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
