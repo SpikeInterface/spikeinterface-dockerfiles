@@ -3,8 +3,7 @@ import shutil
 
 import pytest
 
-import spikeinterface.extractors as se
-import spikeinterface.sorters as ss
+import spikeinterface.full as si
 
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
@@ -27,7 +26,7 @@ def work_dir(request, tmp_path):
 
 @pytest.fixture
 def run_kwargs(work_dir):
-    test_recording, _ = se.toy_example(
+    test_recording, _ = si.toy_example(
         duration=30,
         seed=0,
         num_channels=64,
@@ -38,40 +37,48 @@ def run_kwargs(work_dir):
 
 
 def test_spykingcircus(run_kwargs):
-    sorting = ss.run_spykingcircus(output_folder="spykingcircus", **run_kwargs)
+    sorting = si.run_spykingcircus(output_folder="spykingcircus", **run_kwargs)
     print(sorting)
 
 
 def test_mountainsort4(run_kwargs):
-    sorting = ss.run_mountainsort4(output_folder="mountainsort4", **run_kwargs)
+    sorting = si.run_mountainsort4(output_folder="mountainsort4", **run_kwargs)
     print(sorting)
 
 
 def test_tridesclous(run_kwargs):
-    sorting = ss.run_tridesclous(output_folder="tridesclous", **run_kwargs)
+    sorting = si.run_tridesclous(output_folder="tridesclous", **run_kwargs)
     print(sorting)
 
 
 def test_klusta(run_kwargs):
-    sorting = ss.run_klusta(output_folder="klusta", **run_kwargs)
+    sorting = si.run_klusta(output_folder="klusta", **run_kwargs)
     print(sorting)
 
 
 def test_ironclust(run_kwargs):
-    sorting = ss.run_ironclust(output_folder="ironclust", fGpu=False, **run_kwargs)
+    sorting = si.run_ironclust(output_folder="ironclust", fGpu=False, **run_kwargs)
     print(sorting)
 
 
 def test_waveclus(run_kwargs):
-    sorting = ss.run_waveclus(output_folder="waveclus", **run_kwargs)
+    sorting = si.run_waveclus(output_folder="waveclus", **run_kwargs)
     print(sorting)
 
 
 def test_hdsort(run_kwargs):
-    sorting = ss.run_hdsort(output_folder="hdsort", **run_kwargs)
+    sorting = si.run_hdsort(output_folder="hdsort", **run_kwargs)
     print(sorting)
 
 
 def test_kilosort1(run_kwargs):
-    sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
+    sorting = si.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
+    print(sorting)
+
+
+def test_combinato(run_kwargs):
+    rec = run_kwargs['recording']
+    channels = rec.get_channel_ids()[0:1]
+    run_kwargs['recording'] = si.ChannelSliceRecording(rec, channels)
+    sorting = si.run_combinato(output_folder='combinato', **run_kwargs)
     print(sorting)
