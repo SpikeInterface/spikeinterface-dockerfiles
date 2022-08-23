@@ -79,6 +79,7 @@ def test_kilosort1(run_kwargs):
 def test_combinato(run_kwargs):
     rec = run_kwargs['recording']
     channels = rec.get_channel_ids()[0:1]
-    run_kwargs['recording'] = si.ChannelSliceRecording(rec, channels)
+    rec_one_channel = rec.channel_slice(channels)
+    run_kwargs['recording'] = rec_one_channel
     sorting = si.run_combinato(output_folder='combinato', **run_kwargs)
     print(sorting)
