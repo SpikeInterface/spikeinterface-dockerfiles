@@ -75,3 +75,12 @@ def test_hdsort(run_kwargs):
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
+
+
+def test_combinato(run_kwargs):
+    rec = run_kwargs['recording']
+    channels = rec.get_channel_ids()[0:1]
+    rec_one_channel = rec.channel_slice(channels)
+    run_kwargs['recording'] = rec_one_channel
+    sorting = ss.run_combinato(output_folder='combinato', **run_kwargs)
+    print(sorting)
