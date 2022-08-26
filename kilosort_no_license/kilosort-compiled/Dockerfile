@@ -1,6 +1,6 @@
 FROM ks-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/ks_compiled
+RUN chmod 755 /usr/bin/mlrtapp/kilosort_master
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
@@ -13,4 +13,3 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 RUN apt-get install python3-pip -y
 RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 RUN pip install -U pip
-

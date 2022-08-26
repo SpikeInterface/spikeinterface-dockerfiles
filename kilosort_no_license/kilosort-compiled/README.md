@@ -1,6 +1,6 @@
 # Generating Compiled Kilosort Docker Image
 
-## 1. Kilosort Setup 
+## 1. Kilosort Setup
 - Git clone or Download Kilosort [source code](https://github.com/cortex-lab/KiloSort)
 - Open Matlab
 - Compile Kilosort mexfiles:
