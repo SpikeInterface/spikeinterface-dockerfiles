@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ $# == 0 ]; then
     echo "Usage: $0 param1 param2"
