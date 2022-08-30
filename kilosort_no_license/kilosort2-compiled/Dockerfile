@@ -1,6 +1,6 @@
 FROM ks2-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/ks2_compiled
+RUN chmod 755 /usr/bin/mlrtapp/kilosort2_master
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
