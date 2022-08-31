@@ -14,6 +14,7 @@ There are three main steps for generating a functional HDsort docker image:
 
 ### Matlab Requirements
 - MATLAB Compiler
+- Fuzzy_Logic Toolbox
 - More requirements to be checked and listed...
 
 ## Compiling HDsort as Matlab's Standalone Application

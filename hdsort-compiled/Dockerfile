@@ -1,6 +1,6 @@
 FROM hdsort-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/hdsort_compiled
+RUN chmod 755 /usr/bin/mlrtapp/hdsort_master
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
