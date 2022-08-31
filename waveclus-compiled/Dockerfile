@@ -1,6 +1,6 @@
 FROM waveclus-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/waveclus_compiled
+RUN chmod 755 /usr/bin/mlrtapp/waveclus_master
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
