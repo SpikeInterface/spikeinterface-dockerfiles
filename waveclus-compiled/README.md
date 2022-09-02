@@ -1,10 +1,10 @@
-# Waveclus Compiled Docker Images
+# Waveclus Compiled Docker Image
 
 This documentation is intended to show how to create a Docker image with Matlab compiled Waveclus sorter. The main goal of this project is to avoid the requirement of Matlab Licenses and also abstract the installation and setup steps to run the sorter
 
 There are three main steps for generating a functional Waveclus docker image:
 1. Compile Waveclus as Matlab's Standalone Application
-2. Create a (base) docker image with Matlab Runtime and the compiled application from step 1
+2. Create a base docker image with Matlab Runtime and the compiled application from step 1
 3. Extend the docker image from step 2 for improvements and fixes
 
 ## Requirements
@@ -54,7 +54,7 @@ There are three main steps for generating a functional Waveclus docker image:
   ```
 
 ## Extending Base Image and creating final image
-The Dockerfile in this folder applies some fixes and updates to the base image generated automatically by Matlab in order to properly run waveclus:
+The Dockerfile in this folder applies some fixes and updates to the base image in order to properly run waveclus:
 
 
 - In your terminal, go to the  folder for this project:
