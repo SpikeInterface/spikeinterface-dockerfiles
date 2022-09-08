@@ -33,5 +33,12 @@ matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/waveclus/waveclus_master
 echo "Creating base docker image..."
 matlab -batch "compiler.package.docker('waveclus_master', 'requiredMCRProducts.txt', 'ImageName', 'waveclus-matlab-base')"
 
+echo "Compiling waveclus_snippets_master..."
+matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/waveclus/waveclus_snippets_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${WC_PATH}"
+
+echo "Creating base docker image..."
+matlab -batch "compiler.package.docker('waveclus_snippets_master', 'requiredMCRProducts.txt', 'ImageName', 'waveclus-snippets-matlab-base')"
+
+
 cd $WORK_DIR
 rm -r $TMP_DIR

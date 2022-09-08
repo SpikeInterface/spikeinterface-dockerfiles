@@ -1,6 +1,8 @@
 FROM waveclus-matlab-base
 
+COPY --from=waveclus-snippets-matlab-base /usr/bin/mlrtapp/waveclus_snippets_master /usr/bin/mlrtapp/waveclus_snippets_master
 RUN chmod 755 /usr/bin/mlrtapp/waveclus_master
+RUN chmod 755 /usr/bin/mlrtapp/waveclus_snippets_master
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 RUN apt-get update -y
@@ -13,4 +15,3 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 RUN apt-get install python3-pip -y
 RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 RUN pip install -U pip
-
