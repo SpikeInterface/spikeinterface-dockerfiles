@@ -1,6 +1,6 @@
 FROM ks3-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/kilosort3_master
+RUN chmod 755 /usr/bin/mlrtapp/ks3_compiled
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 # Installing Python with miniconda

@@ -1,6 +1,6 @@
 FROM hdsort-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/hdsort_master
+RUN chmod 755 /usr/bin/mlrtapp/hdsort_compiled
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 # Installing Python with miniconda

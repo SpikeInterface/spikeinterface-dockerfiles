@@ -11,8 +11,8 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-IC_PATH=$1/matlab
-
+IC_COMPILED_NAME="p_ironclust"
+IC_PATH=${1%/}/matlab
 WORK_DIR=$(pwd)
 SOURCE_DIR=$( dirname -- "$0"; )
 TMP_DIR=$SOURCE_DIR/tmp
@@ -32,7 +32,7 @@ cd $TMP_DIR
 
 # Generating multiple "-a filename" string
 # This is needed because wildcard pattern /* doesn't work
-# properly when running outside matlab's console
+# properly when running mcc outside matlab's console
 ADD_FILES=""
 for fname in $(eval "ls ${IC_PATH} -I \"*.pdf\" -p | grep -v /"); do
     ADD_FILES="${ADD_FILES} -a ${IC_PATH}/${fname}"
@@ -40,10 +40,10 @@ done
 ADD_FILES="${ADD_FILES} -a ${IC_PATH}/prb"
 ADD_FILES="${ADD_FILES} -a ${IC_PATH}/prb_json"
 
-matlab -batch "mcc -m ${IC_PATH}/p_ironclust.m ${ADD_FILES}"
+matlab -batch "mcc -m ${IC_PATH}/p_ironclust.m ${ADD_FILES} -o ${IC_COMPILED_NAME}"
 
 echo "Creating base docker image..."
-matlab -batch "compiler.package.docker('p_ironclust', 'requiredMCRProducts.txt', 'ImageName', 'ironclust-matlab-base')"
+matlab -batch "compiler.package.docker('${IC_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'ironclust-matlab-base')"
 
 cd $WORK_DIR
 rm -r $TMP_DIR

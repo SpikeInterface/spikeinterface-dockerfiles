@@ -13,8 +13,9 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-KS_PATH=$1
-SI_PATH=$2
+KS_COMPILED_NAME="ks_compiled"
+KS_PATH=${1%/}
+SI_PATH=${2%/}
 WORK_DIR=$(pwd)
 SOURCE_DIR=$( dirname -- "$0"; )
 TMP_DIR=$SOURCE_DIR/tmp
@@ -32,10 +33,10 @@ mkdir -p $TMP_DIR
 
 echo "Compiling kilosort_master..."
 cd $TMP_DIR
-matlab -batch "mcc -m $SI_PATH/spikeinterface/sorters/kilosort/kilosort_master.m -a $SI_PATH/spikeinterface/sorters/utils -a $KS_PATH"
+matlab -batch "mcc -m $SI_PATH/spikeinterface/sorters/kilosort/kilosort_master.m -a $SI_PATH/spikeinterface/sorters/utils -a $KS_PATH -o ${KS_COMPILED_NAME}"
 
 echo "Creating base docker image..."
-matlab -batch "compiler.package.docker('kilosort_master', 'requiredMCRProducts.txt', 'ImageName', 'ks-matlab-base')"
+matlab -batch "compiler.package.docker('${KS_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'ks-matlab-base')"
 
 cd $WORK_DIR
 rm -r $TMP_DIR

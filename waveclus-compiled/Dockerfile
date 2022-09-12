@@ -1,8 +1,8 @@
 FROM waveclus-matlab-base
 
-COPY --from=waveclus-snippets-matlab-base /usr/bin/mlrtapp/waveclus_snippets_master /usr/bin/mlrtapp/waveclus_snippets_master
-RUN chmod 755 /usr/bin/mlrtapp/waveclus_master
-RUN chmod 755 /usr/bin/mlrtapp/waveclus_snippets_master
+COPY --from=waveclus-snippets-matlab-base /usr/bin/mlrtapp/waveclus_snippets_compiled /usr/bin/mlrtapp/waveclus_snippets_compiled
+RUN chmod 755 /usr/bin/mlrtapp/waveclus_compiled
+RUN chmod 755 /usr/bin/mlrtapp/waveclus_snippets_compiled
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 # Installing Python with miniconda
@@ -20,3 +20,5 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/m
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
 ENV PATH=$CONDA_DIR/bin:$PATH
+
+RUN pip install hdf5storage
