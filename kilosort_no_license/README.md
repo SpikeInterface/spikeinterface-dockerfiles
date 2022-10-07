@@ -18,12 +18,14 @@ This documentation is intended to show how to create a Docker image with Matlab 
 
 There are four main steps to generate a functional kilosort-compiled docker image:
 
-1. Kilosort Setup
+1. Compile Kilosort CUDA files
 2. Compile Kilosort as Standalone Application
 3. Create a (base) docker image with Matlab Runtime and the compiled application from step 2
 4. Extend the docker image from step 3 for improvements and fixes
 
-Detailed descriptions for each step are documented in `README.md` for each supported kilosort version folder (`kilosort-compiled`, `kilosort2-compiled` and so on)
+Steps 1 to 3 are done by `compile.sh` script, while step 4 is done by `build.sh` script.
+
+Steps to run scripts and create the images are documented in `README.md` for each supported kilosort version folder (`kilosort-compiled`, `kilosort2-compiled` and so on)
 
 Licenses for Matlab and toolboxes are needed only for compiling kilosort as Standalone Application and to generate the base Docker image. After this process, no license will be required, either to extend the base image or to run the sorter.
 

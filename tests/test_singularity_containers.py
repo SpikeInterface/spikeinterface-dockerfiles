@@ -33,6 +33,8 @@ def run_kwargs(work_dir):
         num_channels=64,
         num_segments=1
     )
+    test_recording.set_channel_gains(1)
+    test_recording.set_channel_offsets(1)
     test_recording = test_recording.save(name='toy')
     return dict(recording=test_recording, verbose=True, singularity_image=True)
 
@@ -79,4 +81,13 @@ def test_herdingspikes(run_kwargs):
 
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
+    print(sorting)
+
+
+def test_combinato(run_kwargs):
+    rec = run_kwargs['recording']
+    channels = rec.get_channel_ids()[0:1]
+    rec_one_channel = rec.channel_slice(channels)
+    run_kwargs['recording'] = rec_one_channel
+    sorting = ss.run_combinato(output_folder='combinato', **run_kwargs)
     print(sorting)
