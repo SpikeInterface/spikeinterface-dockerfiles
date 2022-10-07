@@ -33,6 +33,8 @@ def run_kwargs(work_dir):
         num_channels=64,
         num_segments=1
     )
+    test_recording.set_channel_gains(1)
+    test_recording.set_channel_offsets(1)
     test_recording = test_recording.save(name='toy')
     return dict(recording=test_recording, verbose=True, singularity_image=True)
 
