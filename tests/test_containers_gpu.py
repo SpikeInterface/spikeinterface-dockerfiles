@@ -8,6 +8,22 @@ import spikeinterface.sorters as ss
 
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
+DOCKER_SINGULARITY = "docker" # "singularity"
+
+def _run_kwargs():
+    test_recording, _ = se.toy_example(
+        duration=30,
+        seed=0,
+        num_channels=64,
+        num_segments=1
+    )
+    test_recording = test_recording.save(name='toy')
+    kwargs = dict(recording=test_recording, verbose=True)
+    if DOCKER_SINGULARITY == "singularity":
+        kwargs["singularity_image"] = True
+    else:
+        kwargs["docker_image"] = True
+    return kwargs
 
 @pytest.fixture(autouse=True)
 def work_dir(request, tmp_path):
@@ -34,7 +50,12 @@ def run_kwargs(work_dir):
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
-    return dict(recording=test_recording, verbose=True, singularity_image=True)
+    kwargs = dict(recording=test_recording, verbose=True)
+    if DOCKER_SINGULARITY == "singularity":
+        kwargs["singularity_image"] = True
+    else:
+        kwargs["docker_image"] = True
+    return kwargs
 
 
 def test_kilosort2(run_kwargs):
@@ -61,3 +82,7 @@ def test_yass(run_kwargs):
 def test_pykilosort(run_kwargs):
     sorting = ss.run_pykilosort(output_folder="pykilosort", **run_kwargs)
     print(sorting)
+
+if __name__ == "__main__":
+    kwargs = _run_kwargs()
+    test_kilosort2(kwargs)

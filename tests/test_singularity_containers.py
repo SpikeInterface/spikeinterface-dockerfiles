@@ -8,6 +8,8 @@ import spikeinterface.sorters as ss
 
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
+DOCKER_SINGULARITY = "docker" # "singularity"
+
 
 @pytest.fixture(autouse=True)
 def work_dir(request, tmp_path):
@@ -34,7 +36,12 @@ def run_kwargs(work_dir):
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
-    return dict(recording=test_recording, verbose=True, singularity_image=True)
+    kwargs = dict(recording=test_recording, verbose=True)
+    if DOCKER_SINGULARITY == "singularity":
+        kwargs["singularity_image"] = True
+    else:
+        kwargs["docker_image"] = True
+    return kwargs
 
 
 def test_spykingcircus(run_kwargs):
@@ -75,3 +82,8 @@ def test_hdsort(run_kwargs):
 def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
+
+
+if __name__ == "__main__":
+    kwargs = run_kwargs(None)
+    test_ironclust(kwargs)
