@@ -20,6 +20,8 @@ def generate_run_kwargs():
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
+    test_recording.set_channel_gains(1)
+    test_recording.set_channel_offsets(1)
     run_kwargs = dict(recording=test_recording, verbose=True)
     if DOCKER_SINGULARITY == "singularity":
         run_kwargs["singularity_image"] = True
