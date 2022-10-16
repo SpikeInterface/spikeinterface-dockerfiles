@@ -6,11 +6,10 @@ import pytest
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 
-
-DOCKER_SINGULARITY = "singularity" # "singularity"
-
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
+# test docker or singularity
+DOCKER_SINGULARITY = "singularity" # "docker"
 
 
 def generate_run_kwargs(DOCKER_SINGULARITY):
