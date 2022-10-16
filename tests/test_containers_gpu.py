@@ -6,11 +6,14 @@ import pytest
 import spikeinterface.extractors as se
 import spikeinterface.sorters as ss
 
+
+DOCKER_SINGULARITY = "singularity" # "singularity"
+
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
-DOCKER_SINGULARITY = "docker" # "singularity"
 
-def _run_kwargs():
+
+def generate_run_kwargs(DOCKER_SINGULARITY):
     test_recording, _ = se.toy_example(
         duration=30,
         seed=0,
@@ -18,12 +21,14 @@ def _run_kwargs():
         num_segments=1
     )
     test_recording = test_recording.save(name='toy')
-    kwargs = dict(recording=test_recording, verbose=True)
+    run_kwargs = dict(recording=test_recording, verbose=True)
     if DOCKER_SINGULARITY == "singularity":
-        kwargs["singularity_image"] = True
+        run_kwargs["singularity_image"] = True
+    elif DOCKER_SINGULARITY == "docker":
+        run_kwargs["docker_image"] = True
     else:
-        kwargs["docker_image"] = True
-    return kwargs
+        raise Exception("DOCKER_SINGULARITY can be 'docker' or 'singularity'")
+    return run_kwargs
 
 @pytest.fixture(autouse=True)
 def work_dir(request, tmp_path):
@@ -43,19 +48,7 @@ def work_dir(request, tmp_path):
 
 @pytest.fixture
 def run_kwargs(work_dir):
-    test_recording, _ = se.toy_example(
-        duration=30,
-        seed=0,
-        num_channels=64,
-        num_segments=1
-    )
-    test_recording = test_recording.save(name='toy')
-    kwargs = dict(recording=test_recording, verbose=True)
-    if DOCKER_SINGULARITY == "singularity":
-        kwargs["singularity_image"] = True
-    else:
-        kwargs["docker_image"] = True
-    return kwargs
+    return generate_run_kwargs()
 
 
 def test_kilosort2(run_kwargs):
@@ -78,11 +71,10 @@ def test_yass(run_kwargs):
     print(sorting)
 
 
-@pytest.mark.skip(reason="Need to check errors")
 def test_pykilosort(run_kwargs):
     sorting = ss.run_pykilosort(output_folder="pykilosort", **run_kwargs)
     print(sorting)
 
 if __name__ == "__main__":
     kwargs = _run_kwargs()
-    test_kilosort2(kwargs)
+    test_pykilosort(kwargs)
