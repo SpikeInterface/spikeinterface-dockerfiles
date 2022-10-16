@@ -12,7 +12,7 @@ os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 DOCKER_SINGULARITY = "singularity" # "docker"
 
 
-def generate_run_kwargs(DOCKER_SINGULARITY):
+def generate_run_kwargs():
     test_recording, _ = se.toy_example(
         duration=30,
         seed=0,
@@ -75,5 +75,5 @@ def test_pykilosort(run_kwargs):
     print(sorting)
 
 if __name__ == "__main__":
-    kwargs = _run_kwargs()
+    kwargs = generate_run_kwargs()
     test_pykilosort(kwargs)
