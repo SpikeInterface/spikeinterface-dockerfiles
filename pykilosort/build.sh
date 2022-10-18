@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t spikeinterface/pykilosort-base:latest -t spikeinterface/pykilosort-base:0.1.0 .
+docker build -t spikeinterface/pykilosort-base:latest -t spikeinterface/pykilosort-base:ibl-1.3 .

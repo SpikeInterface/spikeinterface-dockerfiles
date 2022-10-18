@@ -29,15 +29,14 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 # make conda activate command available from /bin/bash --interactive shells
 RUN conda init bash
 
-# Install python port of pykilosort
-RUN git clone -b drift_test_stable https://github.com/kushbanga/pykilosort.git /src/pykilosort
+# Install IBL python port of pykilosort
+RUN git clone https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
-# Switch to MouseLand/develop branch - may revert to kushbanga/drift_test_stable in the future
-RUN git remote add MouseLand https://github.com/MouseLand/pykilosort.git && \
-    git fetch MouseLand && git checkout MouseLand/develop && git checkout -b develop
 
 # modify env file so that env extends on base
 RUN sed -i "s/pyks2/base/" pyks2.yml
+RUN sed -i "s/- spikeinterface//" pyks2.yml
+RUN cat pyks2.yml
 
 # Create environment
 RUN conda env update --name base --file pyks2.yml --prune

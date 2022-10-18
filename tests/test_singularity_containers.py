@@ -8,6 +8,29 @@ import spikeinterface.sorters as ss
 
 os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 
+# test docker or singularity
+DOCKER_SINGULARITY = "singularity" # "docker"
+
+
+def generate_run_kwargs():
+    test_recording, _ = se.toy_example(
+        duration=30,
+        seed=0,
+        num_channels=64,
+        num_segments=1
+    )
+    test_recording = test_recording.save(name='toy')
+    test_recording.set_channel_gains(1)
+    test_recording.set_channel_offsets(1)
+    run_kwargs = dict(recording=test_recording, verbose=True)
+    if DOCKER_SINGULARITY == "singularity":
+        run_kwargs["singularity_image"] = True
+    elif DOCKER_SINGULARITY == "docker":
+        run_kwargs["docker_image"] = True
+    else:
+        raise Exception("DOCKER_SINGULARITY can be 'docker' or 'singularity'")
+    return run_kwargs
+
 
 @pytest.fixture(autouse=True)
 def work_dir(request, tmp_path):
@@ -27,16 +50,7 @@ def work_dir(request, tmp_path):
 
 @pytest.fixture
 def run_kwargs(work_dir):
-    test_recording, _ = se.toy_example(
-        duration=30,
-        seed=0,
-        num_channels=64,
-        num_segments=1
-    )
-    test_recording.set_channel_gains(1)
-    test_recording.set_channel_offsets(1)
-    test_recording = test_recording.save(name='toy')
-    return dict(recording=test_recording, verbose=True, singularity_image=True)
+    return generate_run_kwargs()
 
 
 def test_spykingcircus(run_kwargs):
@@ -78,7 +92,6 @@ def test_kilosort1(run_kwargs):
     sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
 
-
 def test_combinato(run_kwargs):
     rec = run_kwargs['recording']
     channels = rec.get_channel_ids()[0:1]
@@ -86,3 +99,7 @@ def test_combinato(run_kwargs):
     run_kwargs['recording'] = rec_one_channel
     sorting = ss.run_combinato(output_folder='combinato', **run_kwargs)
     print(sorting)
+
+if __name__ == "__main__":
+    kwargs = generate_run_kwargs()
+    test_ironclust(kwargs)
