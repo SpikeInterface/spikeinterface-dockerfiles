@@ -52,3 +52,5 @@ RUN git clone https://github.com/paninski-lab/yass \
 # fix versions of scipy and pyyaml (to avoid Loader problem)
 RUN pip install scipy==1.7.3 && pip install pyyaml==5.3
 
+RUN pip install spikeinterface
+
