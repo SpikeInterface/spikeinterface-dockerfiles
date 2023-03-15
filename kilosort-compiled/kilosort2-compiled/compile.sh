@@ -3,24 +3,24 @@ set -e
 
 if [ $# == 0 ]; then
     echo "Usage: $0 param1 param2"
-    echo "* param1: kilosort3 path"
+    echo "* param1: kilosort2 path"
     echo "* param2: spikeinterface path"
     exit
 fi
 
 if [ $# -ne 2 ]; then
-    echo "spikeinterface and kilosort3 path must be given"
+    echo "spikeinterface and kilosort2 path must be given"
     exit 1
 fi
 
-KS3_COMPILED_NAME="ks3_compiled"
+KS2_COMPILED_NAME="ks2_compiled"
 KS_PATH=${1%/}
 SI_PATH=${2%/}
 WORK_DIR=$(pwd)
 SOURCE_DIR=$( dirname -- "$0"; )
 TMP_DIR=$SOURCE_DIR/tmp
 
-echo "kilosort3 path: ${KS_PATH}"
+echo "kilosort2 path: ${KS_PATH}"
 echo "spike-interface path: ${SI_PATH}"
 
 echo "Compiling CUDA files"
@@ -33,10 +33,10 @@ mkdir -p $TMP_DIR
 
 echo "Compiling kilosort_master..."
 cd $TMP_DIR
-matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/kilosort3/kilosort3_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${KS_PATH} -o ${KS3_COMPILED_NAME}"
+matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/external/kilosort2_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${KS_PATH} -o ${KS2_COMPILED_NAME}"
 
 echo "Creating base docker image..."
-matlab -batch "compiler.package.docker('${KS3_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'ks3-matlab-base')"
+matlab -batch "compiler.package.docker('${KS2_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'ks2-matlab-base')"
 
 cd $WORK_DIR
 rm -r $TMP_DIR
