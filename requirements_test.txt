@@ -1,3 +1,3 @@
-git+https://github.com/SpikeInterface/spikeinterface.git#egg=spikeinterface[full]
+spikeinterface[full] @ git+https://github.com/SpikeInterface/spikeinterface.git
 spython==0.2.1
 pytest==7.1.2
