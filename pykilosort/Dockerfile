@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-base-ubuntu18.04 
+FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
 LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
 
@@ -13,9 +13,9 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # install miniconda
-ENV MINICONDA_VERSION 4.12.0
+ENV MINICONDA_VERSION 23.1.0-1
 ENV CONDA_DIR /home/miniconda3
-ENV LATEST_CONDA_SCRIPT "Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh"
+ENV LATEST_CONDA_SCRIPT "Miniconda3-py310_$MINICONDA_VERSION-Linux-x86_64.sh"
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
