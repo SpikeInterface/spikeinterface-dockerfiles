@@ -5,4 +5,4 @@ RUN pip install --no-input pip==21.2.4
 
 RUN pip install numpy
 
-RUN pip install mountainsort5==0.1.5
+RUN pip install mountainsort5==0.3.0
