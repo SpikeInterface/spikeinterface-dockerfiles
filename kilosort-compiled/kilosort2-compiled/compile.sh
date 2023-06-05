@@ -33,7 +33,7 @@ mkdir -p $TMP_DIR
 
 echo "Compiling kilosort_master..."
 cd $TMP_DIR
-matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/external/kilosort2_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${KS_PATH} -o ${KS2_COMPILED_NAME}"
+matlab -batch "mcc -m ${SI_PATH}/src/spikeinterface/sorters/external/kilosort2_master.m -a ${SI_PATH}/src/spikeinterface/sorters/utils -a ${KS_PATH} -o ${KS2_COMPILED_NAME}"
 
 echo "Creating base docker image..."
 matlab -batch "compiler.package.docker('${KS2_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'ks2-matlab-base')"
