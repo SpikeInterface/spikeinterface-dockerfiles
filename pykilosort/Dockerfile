@@ -1,6 +1,6 @@
 FROM nvidia/cuda:10.0-base-ubuntu18.04 
 
-LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
+LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
 # USER root
 # Ubuntu package installs
@@ -13,9 +13,10 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # install miniconda
-ENV MINICONDA_VERSION 4.12.0
+ENV MINICONDA_VERSION 23.3.1-0
+ENV PY_VERSION py39
 ENV CONDA_DIR /home/miniconda3
-ENV LATEST_CONDA_SCRIPT "Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh"
+ENV LATEST_CONDA_SCRIPT "Miniconda3-${PY_VERSION}_${MINICONDA_VERSION}-Linux-x86_64.sh"
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
@@ -30,13 +31,12 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 RUN conda init bash
 
 # Install IBL python port of pykilosort
-RUN git clone https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
+RUN git clone -b 1.4.3 https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
 
 # modify env file so that env extends on base
 RUN sed -i "s/pyks2/base/" pyks2.yml
 RUN sed -i "s/- spikeinterface//" pyks2.yml
-RUN cat pyks2.yml
 
 # Create environment
 RUN conda env update --name base --file pyks2.yml --prune
@@ -45,9 +45,6 @@ RUN conda env update --name base --file pyks2.yml --prune
 RUN conda install --quiet --yes ipykernel && \
     python -m ipykernel install --user --display-name "pyKilosort" && \ 
     conda develop .   
-
-# install phylib from master because of read-only bug (https://github.com/cortex-lab/phylib/pull/35)
-RUN pip uninstall -y phylib && pip install git+https://github.com/cortex-lab/phylib.git
 
 #--name pyks2
 WORKDIR /
