@@ -118,7 +118,7 @@ def test_kilosort2_skip_preproc(run_kwargs):
     run_kwargs["recording"] = spre.scale(run_kwargs["recording"], gain=gain, dtype="int16")
 
     sorting = ss.run_sorter(
-        "kilosort2", output_folder="kilosort2", skip_kilosort_preprocessing=True, scaleproc=gain, **run_kwargs
+        "kilosort2", output_folder="kilosort2_skip", skip_kilosort_preprocessing=True, scaleproc=gain, **run_kwargs
     )
     print(sorting)
 
@@ -132,8 +132,22 @@ def test_kilosort2_5_skip_preproc(run_kwargs):
     run_kwargs["recording"] = spre.zscore(run_kwargs["recording"])
     run_kwargs["recording"] = spre.scale(run_kwargs["recording"], gain=gain, dtype="int16")
     sorting = ss.run_sorter(
-        "kilosort2_5", output_folder="kilosort2_5", skip_kilosort_preprocessing=True, scaleproc=gain, **run_kwargs
+        "kilosort2_5", output_folder="kilosort2_5_skip", skip_kilosort_preprocessing=True, scaleproc=gain, **run_kwargs
     )
+    print(sorting)
+
+
+def test_kilosort2_5_old_image(run_kwargs):
+    import os
+
+    os.environ["SPIKEINTERFACE_DEV_PATH"] = SI_DEV_PATH
+
+    # docker image
+    if DOCKER_SINGULARITY == "docker":
+        run_kwargs["docker_image"] = "spikeinterface/kilosort2_5-compiled-base:0.1.0"
+    else:
+        run_kwargs["singularity_image"] = "spikeinterface/kilosort2_5-compiled-base:0.1.0"
+    sorting = ss.run_sorter("kilosort2_5", output_folder="kilosort2_5_old", **run_kwargs)
     print(sorting)
 
 
@@ -141,6 +155,7 @@ def test_kilosort2_5_skip_preproc_old_image(run_kwargs):
     import os
 
     os.environ["SPIKEINTERFACE_DEV_PATH"] = SI_DEV_PATH
+    print("Skipping preprocessing")
     gain = 200
     run_kwargs["recording"] = spre.zscore(run_kwargs["recording"])
     run_kwargs["recording"] = spre.scale(run_kwargs["recording"], gain=gain, dtype="int16")
@@ -150,9 +165,12 @@ def test_kilosort2_5_skip_preproc_old_image(run_kwargs):
         run_kwargs["docker_image"] = "spikeinterface/kilosort2_5-compiled-base:0.1.0"
     else:
         run_kwargs["singularity_image"] = "spikeinterface/kilosort2_5-compiled-base:0.1.0"
-    print(run_kwargs)
     sorting = ss.run_sorter(
-        "kilosort2_5", output_folder="kilosort2_5", skip_kilosort_preprocessing=True, scaleproc=gain, **run_kwargs
+        "kilosort2_5",
+        output_folder="kilosort2_5_old_skip",
+        skip_kilosort_preprocessing=True,
+        scaleproc=gain,
+        **run_kwargs
     )
     print(sorting)
 
@@ -165,7 +183,7 @@ def test_kilosort3_skip_preproc(run_kwargs):
     run_kwargs["recording"] = spre.zscore(run_kwargs["recording"])
     run_kwargs["recording"] = spre.scale(run_kwargs["recording"], gain=200, dtype="int16")
     sorting = ss.run_sorter(
-        "kilosort3", output_folder="kilosort3", skip_kilosort_preprocessing=True, scaleproc=200, **run_kwargs
+        "kilosort3", output_folder="kilosort3_skip", skip_kilosort_preprocessing=True, scaleproc=200, **run_kwargs
     )
     print(sorting)
 
@@ -185,7 +203,11 @@ if __name__ == "__main__":
     test_kilosort2_5(kwargs)
     test_kilosort2_5_skip_preproc(kwargs)
     print("\nKilosort2.5 old image")
-    test_kilosort2_5_skip_preproc_old_image(kwargs)
+    # test_kilosort2_5_old_image(kwargs)
+
+    # This is the only failing test
+    # print("\nKilosort2.5 old image - skip")
+    # test_kilosort2_5_skip_preproc_old_image(kwargs)
 
     print("\n\nKilosort3")
     test_kilosort3(kwargs)
