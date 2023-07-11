@@ -93,4 +93,4 @@ def test_pykilosort(run_kwargs):
 
 if __name__ == "__main__":
     kwargs = generate_run_kwargs()
-    test_pykilosort(kwargs)
+    test_kilosort2_5(kwargs)

@@ -1,6 +1,8 @@
-FROM ks3-matlab-base
+FROM ks2_5-matlab-base
 
-RUN chmod 755 /usr/bin/mlrtapp/ks3_compiled
+USER root
+
+RUN chmod 755 /usr/bin/mlrtapp/ks2_5_compiled
 ENV PATH="/usr/bin/mlrtapp:${PATH}"
 
 # Installing Python with miniconda
@@ -11,10 +13,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV MINICONDA_VERSION 4.8.2
+ENV MINICONDA_VERSION 23.1.0-1
+ENV PYTHON_VERSION py39
 ENV CONDA_DIR /home/miniconda3
-ENV LATEST_CONDA_SCRIPT "Miniconda3-py38_$MINICONDA_VERSION-Linux-x86_64.sh"
-
+ENV LATEST_CONDA_SCRIPT "Miniconda3-${PYTHON_VERSION}_${MINICONDA_VERSION}-Linux-x86_64.sh"
+ 
 RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
