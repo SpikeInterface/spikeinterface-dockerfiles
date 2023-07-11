@@ -60,59 +60,49 @@ def run_kwargs(work_dir):
 def test_spykingcircus(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_spykingcircus(output_folder="spykingcircus", **run_kwargs)
+    sorting = ss.run_sorter("spykingcircus", output_folder="spykingcircus", **run_kwargs)
     print(sorting)
 
 
 def test_mountainsort4(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_mountainsort4(output_folder="mountainsort4", **run_kwargs)
+    sorting = ss.run_sorter("mountainsort4", output_folder="mountainsort4", **run_kwargs)
     print(sorting)
 
 
 def test_tridesclous(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_tridesclous(output_folder="tridesclous", **run_kwargs)
-    print(sorting)
-
-
-def test_klusta(run_kwargs):
-    if DOCKER_SINGULARITY == "singularity":
-        clean_singularity_cache()
-    recording = run_kwargs["recording"]
-    recording.extra_requirements.append("pandas")
-    run_kwargs["recording"] = recording
-    sorting = ss.run_klusta(output_folder="klusta", **run_kwargs)
+    sorting = ss.run_sorter("tridesclous", output_folder="tridesclous", **run_kwargs)
     print(sorting)
 
 
 def test_ironclust(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_ironclust(output_folder="ironclust", fGpu=False, **run_kwargs)
+    sorting = ss.run_sorter("ironclust", output_folder="ironclust", fGpu=False, **run_kwargs)
     print(sorting)
 
 
 def test_waveclus(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_waveclus(output_folder="waveclus", **run_kwargs)
+    sorting = ss.run_sorter("waveclus", output_folder="waveclus", **run_kwargs)
     print(sorting)
 
 
 def test_hdsort(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_hdsort(output_folder="hdsort", **run_kwargs)
+    sorting = ss.run_sorter("hdsort", output_folder="hdsort", **run_kwargs)
     print(sorting)
 
 
 def test_kilosort1(run_kwargs):
     if DOCKER_SINGULARITY == "singularity":
         clean_singularity_cache()
-    sorting = ss.run_kilosort(output_folder="kilosort", useGPU=False, **run_kwargs)
+    sorting = ss.run_sorter("kilosort", output_folder="kilosort", useGPU=False, **run_kwargs)
     print(sorting)
 
 def test_combinato(run_kwargs):
@@ -122,7 +112,17 @@ def test_combinato(run_kwargs):
     channels = rec.get_channel_ids()[0:1]
     rec_one_channel = rec.channel_slice(channels)
     run_kwargs['recording'] = rec_one_channel
-    sorting = ss.run_combinato(output_folder='combinato', **run_kwargs)
+    sorting = ss.run_sorter("combinato", output_folder='combinato', **run_kwargs)
+    print(sorting)
+
+@pytest.mark.skip(reason="Legcay sorter: requires Python=3.7")
+def test_klusta(run_kwargs):
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    recording = run_kwargs["recording"]
+    recording.extra_requirements.append("pandas")
+    run_kwargs["recording"] = recording
+    sorting = ss.run_sorter("klusta", output_folder="klusta", **run_kwargs)
     print(sorting)
 
 if __name__ == "__main__":
