@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-base-ubuntu18.04 
+FROM nvidia/cuda:11.0.3-base-ubuntu18.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
@@ -30,8 +30,8 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 # make conda activate command available from /bin/bash --interactive shells
 RUN conda init bash
 
-# Install IBL python port of pykilosort
-RUN git clone -b 1.4.3 https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
+# Install IBL python port of pykilosort - using #16 PR to remove prints from cupy
+RUN git clone -b remove_prints https://github.com/alejoe91/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
 
 # modify env file so that env extends on base
