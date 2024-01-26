@@ -13,6 +13,9 @@ flags:
 -v: mounted volumes (directories)
 --gpus: enables GPU use within container 
 
+Check pykilosort version:
+docker run --rm -it wanglabneuro/pykilosort-base:latest bash -c "python -c 'import pykilosort; print(pykilosort.__version__)'"
+
 ### Test
 Download Neuropixel 1.0 data to your data directory: https://catalystneuro.github.io/spike-sorting-hackathon/datasets/datasets.html#allen-institute-example
 (see also https://github.com/int-brain-lab/pykilosort/tree/ibl_prod/examples, although apparently not up to date)
