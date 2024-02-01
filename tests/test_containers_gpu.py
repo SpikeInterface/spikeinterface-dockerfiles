@@ -12,6 +12,11 @@ os.environ['SINGULARITY_DISABLE_CACHE'] = 'true'
 DOCKER_SINGULARITY = "singularity" # "docker"
 
 
+def clean_singularity_cache():
+    print("Cleaning singularity cache")
+    os.system("singularity cache clean --force")
+
+
 def generate_run_kwargs():
     test_recording, _ = se.toy_example(
         duration=30,
@@ -53,29 +58,39 @@ def run_kwargs(work_dir):
 
 
 def test_kilosort2(run_kwargs):
-    sorting = ss.run_kilosort2(output_folder="kilosort2", **run_kwargs)
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    sorting = ss.run_sorter("kilosort2", output_folder="kilosort2", **run_kwargs)
     print(sorting)
 
 
 def test_kilosort2_5(run_kwargs):
-    sorting = ss.run_kilosort2_5(output_folder="kilosort2_5", **run_kwargs)
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    sorting = ss.run_sorter("kilosort2_5", output_folder="kilosort2_5", **run_kwargs)
     print(sorting)
 
 
 def test_kilosort3(run_kwargs):
-    sorting = ss.run_kilosort3(output_folder="kilosort3", **run_kwargs)
-    print(sorting)
-
-
-def test_yass(run_kwargs):
-    sorting = ss.run_yass(output_folder="yass", **run_kwargs)
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    sorting = ss.run_sorter("kilosort3", output_folder="kilosort3", **run_kwargs)
     print(sorting)
 
 
 def test_pykilosort(run_kwargs):
-    sorting = ss.run_pykilosort(output_folder="pykilosort", **run_kwargs)
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    sorting = ss.run_sorter("pykilosort", output_folder="pykilosort", **run_kwargs)
+    print(sorting)
+
+@pytest.mark.skip(reason="Legcay sorter: requires Python=3.7")
+def test_yass(run_kwargs):
+    if DOCKER_SINGULARITY == "singularity":
+        clean_singularity_cache()
+    sorting = ss.run_sorter("yass", output_folder="yass", **run_kwargs)
     print(sorting)
 
 if __name__ == "__main__":
     kwargs = generate_run_kwargs()
-    test_pykilosort(kwargs)
+    test_kilosort2_5(kwargs)

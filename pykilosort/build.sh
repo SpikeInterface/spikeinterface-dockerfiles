@@ -7,4 +7,4 @@ docker build -t wanglabneuro/pykilosort-base:latest -t wanglabneuro/pykilosort-b
 
 # version info
 # 01/21/2024 - IBL 1.4.7 CUDA 11.3.1 Ubuntu 20.04
-# 01/21/2024 - IBL 1.4.7 CUDA 11.5.2 Ubuntu 20.04
+# 02/01/2024 - IBL 1.4.7 CUDA 11.5.2 Ubuntu 20.04
