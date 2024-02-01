@@ -20,39 +20,39 @@ sudo gpasswd -a $USER video
 Then log out and back in to apply the changes: `su - $USER`
 
 Check fullpursuit version:
-docker run --rm -it wanglabneuro/fullpursuit-base:latest bash -c "python -c 'import spikesorting_fullpursuit; print(spikesorting_fullpursuit.__version__)'"
+docker run --rm -it spikeinterface/fullpursuit-base:latest bash -c "python -c 'import spikesorting_fullpursuit; print(spikesorting_fullpursuit.__version__)'"
 
 Check that pyopencl can detect your graphics card:
-docker run --rm -it --gpus all  wanglabneuro/fullpursuit-base:latest bash -c "python -c 'import pyopencl as cl; platforms = cl.get_platforms(); print(platforms[0].get_devices(cl.device_type.GPU))'"
+docker run --rm -it --gpus all  spikeinterface/fullpursuit-base:latest bash -c "python -c 'import pyopencl as cl; platforms = cl.get_platforms(); print(platforms[0].get_devices(cl.device_type.GPU))'"
 
 ### Test
 Adapted from the readme file's instructions.
 
 First make the voltage data and save ground truth (mounting the host data folder to the docker data folder):  
 ```bash
-docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/make_and_save_voltage.py <docker-data-folder>/test_voltage.npy <docker-data-folder>/test_ground_truth.pickle"
+docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/make_and_save_voltage.py <docker-data-folder>/test_voltage.npy <docker-data-folder>/test_ground_truth.pickle"
 ```
 e.g.:  
 Create the data folder: `mkdir -p /home/$USER/data/fullpursuit_data`
-Then create the groundtruth data: `docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/make_and_save_voltage.py /data/test_voltage.npy /data/test_ground_truth.pickle"`
+Then create the groundtruth data: `docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/make_and_save_voltage.py /data/test_voltage.npy /data/test_ground_truth.pickle"`
 
 Then run the sorting algorithm on the generated synthetic data:  
 ```bash
-docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_run_sort.py <docker-data-folder>/test_voltage.npy <docker-data-folder>/sorted_demo.pickle"
+docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_run_sort.py <docker-data-folder>/test_voltage.npy <docker-data-folder>/sorted_demo.pickle"
 ```
 e.g.:  
-`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_run_sort.py /data/test_voltage.npy /data/sorted_demo.pickle"`
+`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_run_sort.py /data/test_voltage.npy /data/sorted_demo.pickle"`
 
 Run automated postprocessing to place sorter output into a dictionary sorted neurons:  
 ```bash
-docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_postprocessing.py <docker-data-folder>/sorted_demo.pickle <docker-data-folder>/sorted_neurons.pickle"
+docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_postprocessing.py <docker-data-folder>/sorted_demo.pickle <docker-data-folder>/sorted_neurons.pickle"
 ```
 e.g.:  
-`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_postprocessing.py /data/sorted_demo.pickle /data/sorted_neurons.pickle"`
+`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_postprocessing.py /data/sorted_demo.pickle /data/sorted_neurons.pickle"`
 
 Finally run a quick script that compares sorted results to the ground truth generated data and make a couple figures:  
 ```bash
-docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_results.py <docker-data-folder>/sorted_neurons.pickle <docker-data-folder>/test_ground_truth.pickle"
+docker run --rm -it -v <host-data-folder>:<docker-data-folder> --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_results.py <docker-data-folder>/sorted_neurons.pickle <docker-data-folder>/test_ground_truth.pickle"
 ```
 e.g.:  
-`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all wanglabneuro/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_results.py /data/sorted_neurons.pickle /data/test_ground_truth.pickle"`
+`docker run --rm -it -v /home/$USER/data/fullpursuit_data:/data --gpus all spikeinterface/fullpursuit-base:latest bash -c "python /src/fullpursuit/demos/test_demo_results.py /data/sorted_neurons.pickle /data/test_ground_truth.pickle"`
