@@ -1,8 +1,8 @@
-FROM python:3.8
+FROM python:3.10
 
 # downgrade pip version to avoid dependency issues during installations
-RUN pip install --no-input pip==21.2.4
+RUN pip install --upgrade pip
 
 RUN pip install numpy
 
-RUN pip install mountainsort5==0.3.0
+RUN pip install mountainsort5==0.5.3
