@@ -35,7 +35,4 @@ RUN conda init bash
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # install kilosort4
-RUN git clone https://github.com/MouseLand/Kilosort.git && \
-    cd Kilosort && \
-    pip install . && \
-    cd ..
+RUN pip install kilosort==4.0
