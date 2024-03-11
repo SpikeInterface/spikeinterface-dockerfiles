@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t spikeinterface/kilosort3-compiled-base:latest -t spikeinterface/kilosort3-compiled-base:0.2.0 .
+docker build -t spikeinterface/kilosort3-compiled-base:latest -t spikeinterface/kilosort3-compiled-base:0.3.0 .
