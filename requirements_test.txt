@@ -1,3 +1,4 @@
 spikeinterface[full] @ git+https://github.com/SpikeInterface/spikeinterface.git
 spython==0.2.1
+docker==7.1.0
 pytest==7.1.2
