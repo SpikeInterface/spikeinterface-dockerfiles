@@ -1,5 +1,6 @@
-FROM python:3.8
+FROM python:3.12
 
-RUN pip install numpy==1.20.0
+RUN pip install numpy
+RUN pip install cython
 
-RUN pip install herdingspikes==0.3.99
+RUN pip install herdingspikes==0.4.1
