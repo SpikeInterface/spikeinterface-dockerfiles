@@ -1,6 +1,6 @@
 FROM python:3.12
 
-RUN pip install numpy
+RUN pip install "numpy<2.0"
 RUN pip install cython
 
-RUN pip install herdingspikes==0.4.1
+RUN pip install herdingspikes==0.4.3
