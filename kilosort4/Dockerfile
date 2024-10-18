@@ -35,4 +35,4 @@ RUN conda init bash
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # install kilosort4
-RUN pip install kilosort==4.0.16
+RUN pip install kilosort==4.0.18
