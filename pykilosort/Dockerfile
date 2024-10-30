@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-base-ubuntu18.04 
+FROM nvidia/cuda:11.5.2-base-ubuntu20.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
@@ -7,6 +7,7 @@ LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 RUN apt update && \
     apt install -y --no-install-recommends \
     libfftw3-dev \
+    nano \
     git \
     wget && \
     apt clean && \
@@ -31,11 +32,15 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 RUN conda init bash
 
 # Install IBL python port of pykilosort
-RUN git clone -b 1.4.3 https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
+RUN git clone -b 1.4.7 https://github.com/int-brain-lab/pykilosort.git /src/pykilosort
 WORKDIR /src/pykilosort
 
 # modify env file so that env extends on base
 RUN sed -i "s/pyks2/base/" pyks2.yml
+# edit the python line to keep the current python version (e.g., 3.9), otherwise it may upgrade (e.g., to 3.10.x), conflict with numba and break the installation.
+RUN PYTHON_VERSION=$(python --version | cut -d ' ' -f 2) && \
+    sed -i "s/- python.*/- python=$PYTHON_VERSION/" pyks2.yml
+# remove the spikeinterface dependency
 RUN sed -i "s/- spikeinterface//" pyks2.yml
 
 # Create environment
@@ -44,7 +49,7 @@ RUN conda env update --name base --file pyks2.yml --prune
 # Install pykilosort
 RUN conda install --quiet --yes ipykernel && \
     python -m ipykernel install --user --display-name "pyKilosort" && \ 
-    conda develop .   
+    pip install -e .
+RUN conda clean --all --yes
 
-#--name pyks2
 WORKDIR /
