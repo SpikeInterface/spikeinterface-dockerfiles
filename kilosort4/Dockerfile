@@ -2,6 +2,9 @@ FROM nvidia/cuda:12.0.0-base-ubuntu20.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
+ENV KILOSORT4_VERSION=4.0.30
+
+
 # USER root
 # Ubuntu package installs
 RUN apt update && \
@@ -35,4 +38,4 @@ RUN conda init bash
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # install kilosort4
-RUN pip install kilosort==4.0.18
+RUN pip install kilosort==$KILOSORT4_VERSION
