@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.0.0-base-ubuntu20.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
-ENV KILOSORT4_VERSION=4.0.30
+ENV KILOSORT4_VERSION=4.0.38
 
 
 # USER root
