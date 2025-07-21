@@ -39,6 +39,7 @@ for fname in $(eval "ls ${IC_PATH} -I \"*.pdf\" -p | grep -v /"); do
 done
 ADD_FILES="${ADD_FILES} -a ${IC_PATH}/prb"
 ADD_FILES="${ADD_FILES} -a ${IC_PATH}/prb_json"
+ADD_FILES="${ADD_FILES} -a ${IC_PATH}/jsonlab-1.5"
 
 matlab -batch "mcc -m ${IC_PATH}/p_ironclust.m ${ADD_FILES} -o ${IC_COMPILED_NAME}"
 

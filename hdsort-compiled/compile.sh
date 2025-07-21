@@ -29,7 +29,8 @@ mkdir -p $TMP_DIR
 
 echo "Compiling hdsort..."
 cd $TMP_DIR
-matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/hdsort/hdsort_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${HDSORT_PATH} -o ${HDSORT_COMPILED_NAME}"
+EXTERNAL_SORTERS_FOLDER=${SI_PATH}/src/spikeinterface/sorters/external/
+matlab -batch "mcc -m ${EXTERNAL_SORTERS_FOLDER}/hdsort_master.m -a ${SI_PATH}/src/spikeinterface/sorters/utils -a ${HDSORT_PATH} -o ${HDSORT_COMPILED_NAME}"
 
 echo "Creating base docker image..."
 matlab -batch "compiler.package.docker('${HDSORT_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'hdsort-matlab-base')"

@@ -2,9 +2,6 @@ FROM nvidia/cuda:12.0.0-base-ubuntu20.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
-ENV KILOSORT4_VERSION=4.0.38
-
-
 # USER root
 # Ubuntu package installs
 RUN apt update && \
@@ -25,7 +22,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/m
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
 ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda update conda && \
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+    conda update conda && \
     conda install conda-build
 
 # make conda activate command available from /bin/bash --login shells
@@ -34,8 +33,7 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 RUN conda init bash
 
 # install torch
-# RUN conda install -y pytorch pytorch-cuda=11.8 -c pytorch -c nvidia
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip install torch torch-tensorrt tensorrt
 
-# install kilosort4
-RUN pip install kilosort==$KILOSORT4_VERSION
+# install rt-sort
+RUN pip install git+https://github.com/braingeneers/braindance#egg=braindance[rt-sort]

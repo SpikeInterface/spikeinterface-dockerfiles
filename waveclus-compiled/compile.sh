@@ -30,13 +30,14 @@ mkdir -p $TMP_DIR
 
 echo "Compiling waveclus..."
 cd $TMP_DIR
-matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/waveclus/waveclus_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${WC_PATH} -o ${WC_COMPILED_NAME}"
+EXTERNAL_SORTERS_FOLDER=${SI_PATH}/src/spikeinterface/sorters/external/
+matlab -batch "mcc -m ${EXTERNAL_SORTERS_FOLDER}/waveclus_master.m -a ${SI_PATH}/src/spikeinterface/sorters/utils -a ${WC_PATH} -o ${WC_COMPILED_NAME}"
 
 echo "Creating base docker image..."
 matlab -batch "compiler.package.docker('${WC_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'waveclus-matlab-base')"
 
 echo "Compiling waveclus_snippets..."
-matlab -batch "mcc -m ${SI_PATH}/spikeinterface/sorters/waveclus/waveclus_snippets_master.m -a ${SI_PATH}/spikeinterface/sorters/utils -a ${WC_PATH} -o ${WC_SNIPPETS_COMPILED_NAME}"
+matlab -batch "mcc -m ${EXTERNAL_SORTERS_FOLDER}/waveclus_snippets_master.m -a ${SI_PATH}/src/spikeinterface/sorters/utils -a ${WC_PATH} -o ${WC_SNIPPETS_COMPILED_NAME}"
 
 echo "Creating base docker image..."
 matlab -batch "compiler.package.docker('${WC_SNIPPETS_COMPILED_NAME}', 'requiredMCRProducts.txt', 'ImageName', 'waveclus-snippets-matlab-base')"

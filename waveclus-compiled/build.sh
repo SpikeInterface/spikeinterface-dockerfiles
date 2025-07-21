@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t spikeinterface/waveclus-compiled-base:latest -t spikeinterface/waveclus-compiled-base:0.1.0 .
+docker build -t spikeinterface/waveclus-compiled-base:latest -t spikeinterface/waveclus-compiled-base:0.2.0 .
 
