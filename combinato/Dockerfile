@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.12
 
 LABEL maintainer="Vincent Prevosto <prevosto@mit.edu>"
 
@@ -27,11 +27,13 @@ RUN git clone https://github.com/jniediek/combinato.git
 # Add Combinato repository to paths
 ENV COMBINATO_PATH=/src/combinato
 ENV PATH=$PATH:$COMBINATO_PATH
-ENV PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:$COMBINATO_PATH
+ENV PYTHONPATH=/usr/local/bin/python3:$COMBINATO_PATH
 RUN echo '\n\
 export PATH=$PATH:/src/combinato\n\
 export PYTHONPATH=$PYTHONPATH:/usr/local/bin/python3:/src/combinato\n\
 export COMBINATO_PATH=/src/combinato' >> /root/.bashrc
+
+RUN pip install "numpy<2"  # Ensure compatibility with Combinato
 
 # Install Combinato
 WORKDIR /src/combinato

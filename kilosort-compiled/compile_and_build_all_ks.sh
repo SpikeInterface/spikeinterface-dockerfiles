@@ -23,6 +23,9 @@ KILOSORT2_PATH=${3%/}
 KILOSORT25_PATH=${4%/}
 KILOSORT3_PATH=${5%/}
 
+# export MW_NVCC_PATH=/usr/local/cuda-11.2/bin/
+export MW_NVCC_PATH=/usr/bin/
+export MW_ALLOW_ANY_CUDA=1
 
 cd kilosort-compiled
 bash compile.sh $KILOSORT_PATH $SPIKEINTERFACE_PATH

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t spikeinterface/hdsort-compiled-base:latest -t spikeinterface/hdsort-compiled-base:0.1.0 .
+docker build -t spikeinterface/hdsort-compiled-base:latest -t spikeinterface/hdsort-compiled-base:0.2.0 .
 

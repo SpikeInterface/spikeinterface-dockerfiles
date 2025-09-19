@@ -1,9 +1,6 @@
-FROM python:3.8
+FROM python:3.10
 
-# downgrade pip version to avoid dependency issues during installations
-RUN pip install --no-input pip==21.2.4
-
-RUN pip install numpy
+RUN pip install "numpy<2"
 
 RUN pip install requests
 # Install MountainSort4

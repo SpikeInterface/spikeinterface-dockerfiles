@@ -1,8 +1,6 @@
-FROM python:3.10
+FROM python:3.12
 
 # downgrade pip version to avoid dependency issues during installations
 RUN pip install --upgrade pip
-
-RUN pip install numpy
-
+RUN pip install "numpy<2"
 RUN pip install mountainsort5==0.5.6
