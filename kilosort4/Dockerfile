@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.0.0-base-ubuntu20.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
-ENV KILOSORT4_VERSION=4.0.38
+ENV KILOSORT4_VERSION=4.1.7
 
 
 # USER root
@@ -25,7 +25,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/$LATEST_CONDA_SCRIPT -O ~/m
     bash ~/miniconda.sh -b -p $CONDA_DIR && \
     rm ~/miniconda.sh
 ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda update conda && \
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+    conda update conda && \
     conda install conda-build
 
 # make conda activate command available from /bin/bash --login shells

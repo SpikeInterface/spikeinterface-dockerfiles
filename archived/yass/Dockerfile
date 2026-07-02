@@ -37,7 +37,9 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> /root/.profile
 RUN conda init bash
 
 # install YASS
-RUN conda install pytorch==1.2
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+    conda install pytorch==1.2
 RUN git clone https://github.com/paninski-lab/yass \
    && cd yass \
    && pip --no-cache-dir install -e . \
