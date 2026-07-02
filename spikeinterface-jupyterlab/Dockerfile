@@ -23,7 +23,9 @@ fix-permissions /srv/spikeinterface
 USER $NB_UID
 
 # update Anaconda and install pip 
-RUN conda update -y conda && \
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+     conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+     conda update -y conda && \
      conda install -y pip
 
 # Conda installs
