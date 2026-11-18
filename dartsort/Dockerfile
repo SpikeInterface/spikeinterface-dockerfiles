@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.9.2-cudnn-runtime-ubuntu24.04
 
 LABEL maintainer="Alessio Buccino <alessiop.buccino@gmail.com>"
 
-ENV DARTSORT_VERSION=0.5.32
+ENV DARTSORT_VERSION=0.5.33
 ENV CUDA_VERSION=12.9.2
 
 # Ubuntu 24.04 marks system Python as externally managed (PEP 668); fine to override in a container.
